@@ -53,7 +53,7 @@ header .brand .bsub{display:block;opacity:.8;font-weight:500;font-size:.85rem}
 .seg button.ic{font-size:1.05rem;min-width:2.2rem;padding:.25rem .55rem;line-height:1.2}
 /* tab bar */
 .tabbar{position:sticky;top:0;z-index:20;background:var(--tabbg);border-bottom:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.tabbar .in{display:grid;grid-template-columns:repeat(3,1fr);max-width:1600px;margin:0 auto;padding:.6rem 2rem;gap:.8rem}
+.tabbar .in{display:grid;grid-template-columns:repeat(4,1fr);max-width:1600px;margin:0 auto;padding:.6rem 2rem;gap:.8rem}
 .tab{display:flex;align-items:center;gap:.85rem;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:.8rem;padding:.6rem 1rem;cursor:pointer;font:inherit;text-align:left;transition:all .15s}
 .tab .n{flex:none;width:2.3rem;height:2.3rem;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:1.1rem;background:var(--sky);color:var(--blue)}
 .tab .t{display:block;font-weight:800;font-size:1.15rem;line-height:1.25;color:var(--head)}
@@ -83,6 +83,22 @@ html[lang=ko] h3{text-transform:none;letter-spacing:0;font-size:.95rem}
 .qa .card{border-top:4px solid var(--blue)}
 .pill{display:inline-block;background:var(--sky);color:var(--blue);font-weight:800;border-radius:.4rem;padding:0 .5rem;font-size:.8rem;margin-right:.45rem}
 .note{font-size:.88rem;margin-top:1.25rem}
+/* assignment */
+.asg .meta{display:grid;grid-template-columns:max-content 1fr;gap:.45rem 1.4rem;margin:1rem 0 0}
+.asg .meta dt{font-weight:800;color:var(--head)}.asg .meta dd{margin:0}.asg .meta dd p{margin:0 0 .3rem;font-size:1rem}
+.tasks{display:grid;grid-template-columns:repeat(auto-fit,minmax(24rem,1fr));gap:1.25rem;margin-bottom:1.25rem}
+.task{position:relative;opacity:.8}.task p{margin:0 0 .6rem;line-height:1.6}
+.task.chosen{opacity:1;border:2px solid var(--blue);box-shadow:0 4px 18px rgba(31,94,255,.18)}
+.badge{position:absolute;top:-.8rem;right:1rem;background:var(--blue);color:#fff;font-weight:800;font-size:.8rem;border-radius:999px;padding:.2rem .8rem}
+.qs>p{margin:0 0 .8rem}.ql{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.ql .sub{list-style:none;padding-left:1.4rem;margin:.5rem 0 0;display:flex;flex-direction:column;gap:.45rem}
+.qlink{display:block;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-left:4px solid var(--blue2);border-radius:.6rem;padding:.65rem 1rem;line-height:1.55;transition:all .15s}
+.qlink:hover{border-color:var(--blue);background:var(--sky)}
+.qlink .go{float:right;margin-left:1rem;color:var(--blue);font-weight:700;font-size:.88rem;white-space:nowrap}
+.report [id^=r-]{scroll-margin-top:calc(var(--tabh,5rem) + 1rem)}.report li[id^=src-]{scroll-margin-top:calc(var(--tabh,5rem) + 1rem)}
+@keyframes flash{0%{background:rgba(255,196,0,.55)}100%{background:transparent}}
+.flash{animation:flash 2.4s ease-out;border-radius:.3rem}
+sup.ref{line-height:0;font-size:.72em}sup.ref a{text-decoration:none}
 /* model */
 .mwrap{display:grid;grid-template-columns:minmax(25rem,36%) minmax(0,1fr);gap:1.25rem;max-width:1600px;margin:0 auto;padding:1.25rem 2rem 2rem;align-items:start}
 .mwrap>*{min-width:0}
@@ -127,8 +143,8 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 .report th,.report td{border:1px solid var(--line);padding:.5rem .65rem;vertical-align:top}
 .report th{background:var(--th);color:var(--head);text-align:left}
 .report tr:nth-child(even) td{background:var(--zebra)}
-.report a.cite{font-size:.75em;vertical-align:super;line-height:0}
-.report ul.src{font-size:.86rem;word-break:break-all}
+.report ol.src{list-style:none;padding-left:0}.report ol.src li{margin-bottom:.35rem}.report .rn{font-weight:700;color:var(--head)}
+.report ol.src{font-size:.86rem;word-break:break-all}
 .report hr{border:0;border-top:1px solid var(--line);margin:2rem 0}
 @media (max-width:1000px){.mwrap{grid-template-columns:1fr}.levers{position:static;max-height:none}.tabbar .in{padding:.5rem 1rem}.tab .d{display:none}}
 </style>
@@ -144,10 +160,95 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
  </div>
 </header>
 <nav class="tabbar" id="tabbar"><div class="in">
- <button class="tab" data-t="overview"><span class="n">1</span><span><span class="t" data-i18n="t1"></span><span class="d" data-i18n="t1d"></span></span></button>
- <button class="tab" data-t="model"><span class="n">2</span><span><span class="t" data-i18n="t2"></span><span class="d" data-i18n="t2d"></span></span></button>
- <button class="tab" data-t="report"><span class="n">3</span><span><span class="t" data-i18n="t3"></span><span class="d" data-i18n="t3d"></span></span></button>
+ <button class="tab" data-t="assignment"><span class="n">1</span><span><span class="t" data-i18n="t0"></span><span class="d" data-i18n="t0d"></span></span></button>
+ <button class="tab" data-t="overview"><span class="n">2</span><span><span class="t" data-i18n="t1"></span><span class="d" data-i18n="t1d"></span></span></button>
+ <button class="tab" data-t="model"><span class="n">3</span><span><span class="t" data-i18n="t2"></span><span class="d" data-i18n="t2d"></span></span></button>
+ <button class="tab" data-t="report"><span class="n">4</span><span><span class="t" data-i18n="t3"></span><span class="d" data-i18n="t3d"></span></span></button>
 </div></nav>
+
+<!-- ================= ASSIGNMENT ================= -->
+<section id="p-assignment"><div class="wrap">
+<div data-lang="en" class="asg">
+ <div class="hero">
+  <h2>[Round 1 Assignment Details]</h2>
+  <p class="muted" style="margin-top:.2rem">English translation of MOIN's brief (the Korean original is under 한국어). Click a question to jump to its answer in the full report.</p>
+  <dl class="meta">
+   <dt>Submission window</dt><dd><p>2026-10-15 (Thu) 10:00 to 2026-10-16 (Fri) 10:00</p></dd>
+   <dt>Title</dt><dd><p>Overseas sales strategy for MOIN's B2B solutions</p></dd>
+   <dt>Details</dt><dd><p>Choose one of the two tasks below. Submit a PDF of no more than 3 A4 pages, in any format.</p><p>You may write in Korean or English.</p><p>For information on MOIN's services, see MOIN English (<a href="https://global.themoin.com/?hl=en" target="_blank">https://global.themoin.com/?hl=en</a>), MOIN (<a href="https://www.themoin.com/" target="_blank">https://www.themoin.com/</a>) and MOIN BizPlus (<a href="https://www.moinbizplus.com/" target="_blank">https://www.moinbizplus.com/</a>). In both tasks, MOIN sells to overseas businesses, not to end consumers.</p></dd>
+  </dl>
+ </div>
+ <div class="tasks">
+  <div class="card task">
+   <h3><span class="pill">Task 1</span>KRW collection (원화 수납)</h3>
+   <p><b>Situation:</b> Overseas businesses sometimes need to collect payment from Korean customers: course fees for overseas online education platforms, sales proceeds for overseas e-commerce, trade payments for overseas exporters, and so on.</p>
+   <p><b>The difficulty:</b> Korean payers often pay by KRW bank transfer, but overseas businesses have no Korean entity or bank account, so they cannot receive KRW directly.</p>
+   <p><b>MOIN's role:</b> MOIN issues Korean virtual accounts on the overseas business's behalf. When Korean payers deposit KRW into those accounts, MOIN collects the funds and settles them to the overseas business. The business can collect KRW without setting up a Korean entity. MOIN earns a per-transaction fee and an FX margin.</p>
+  </div>
+  <div class="card task chosen">
+   <span class="badge">Task chosen by HSO</span>
+   <h3><span class="pill">Task 2</span>Inbound remittance (타발 송금)</h3>
+   <p><b>Situation:</b> Overseas remittance and payment providers need to send their customers' funds to recipients in Korea: overseas residents sending money to people in Korea, global platforms settling with Korean sellers, and so on. (타발 is the industry term, from Korea's point of view, for remittances coming in from abroad.)</p>
+   <p><b>The difficulty:</b> The last step, crediting KRW to the Korean recipient's bank account, requires a Korean licence and connections to domestic banks, so overseas providers cannot do it themselves.</p>
+   <p><b>MOIN's role:</b> MOIN handles that last leg. The overseas provider sends payment instructions and funds to MOIN, and MOIN pays KRW into the Korean recipients' accounts. The provider can support the Korea corridor without obtaining a licence. MOIN earns a per-transaction fee and an FX margin.</p>
+  </div>
+ </div>
+ <div class="card qs">
+  <h3>Common questions</h3>
+  <p>For the task you choose, answer the three questions below.</p>
+  <ol class="ql">
+   <li><a class="qlink" href="#report" data-q="q1"><b>Q1. Define the target market:</b> Define which countries and industries it makes sense to approach first. Describe the priorities and their rationale, along with the metrics and assumptions used in your judgement.<span class="go">See answer →</span></a></li>
+   <li><a class="qlink" href="#report" data-q="q2"><b>Q2. Go after the top-priority segment:</b> Pick one real company in the segment ranked first in Q1 and address the three items below.<span class="go">See answer →</span></a>
+    <ul class="sub">
+     <li><a class="qlink" href="#report" data-q="q2a">(a) An estimate of how the company handles funds today, and the basis for that estimate<span class="go">→</span></a></li>
+     <li><a class="qlink" href="#report" data-q="q2b">(b) The benefits of adopting MOIN's service, and the factors that could make the customer hold off<span class="go">→</span></a></li>
+     <li><a class="qlink" href="#report" data-q="q2c">(c) Communication strategy (whom to contact, the key arguments to present, the order of approach)<span class="go">→</span></a></li>
+    </ul></li>
+   <li><a class="qlink" href="#report" data-q="q3"><b>Q3. After signing:</b> Right after signing, this customer will likely route only part of its transactions through MOIN. What would you do to increase the share processed through MOIN within three months?<span class="go">See answer →</span></a></li>
+  </ol>
+ </div>
+</div>
+<div data-lang="ko" class="asg">
+ <div class="hero">
+  <h2>[1차 과제 전형 상세]</h2>
+  <p class="muted" style="margin-top:.2rem">모인이 제시한 과제 원문입니다. 문항을 누르면 전체 보고서의 해당 답변으로 이동합니다.</p>
+  <dl class="meta">
+   <dt>과제 제출 기한</dt><dd><p>2026-10-15(목) 10:00 ~ 2026-10-16(금) 10:00</p></dd>
+   <dt>과제명</dt><dd><p>모인 B2B 솔루션의 해외 판매 전략</p></dd>
+   <dt>과제 상세</dt><dd><p>아래 두 과제 중 하나를 선택해 진행해주세요. 제출물은 자율 양식으로 A4 3장 이내 PDF로 제출해주세요.</p><p>작성 언어는 국문과 영문 모두 가능합니다.</p><p>모인 서비스에 대한 정보는 모인 영문 (<a href="https://global.themoin.com/?hl=en" target="_blank">https://global.themoin.com/?hl=en</a>), 모인 (<a href="https://www.themoin.com/" target="_blank">https://www.themoin.com/</a>), 모인 비즈플러스 (<a href="https://www.moinbizplus.com/" target="_blank">https://www.moinbizplus.com/</a>) 페이지를 참고해주세요. 두 과제 모두 모인의 판매 대상은 최종 소비자가 아니라 해외 기업입니다.</p></dd>
+  </dl>
+ </div>
+ <div class="tasks">
+  <div class="card task">
+   <h3><span class="pill">과제1</span>원화 수납</h3>
+   <p><b>상황:</b> 해외 기업이 한국 고객에게 대금을 받아야 하는 경우가 있습니다. 해외 온라인 교육 플랫폼의 수강료, 해외 이커머스의 판매 대금, 해외 수출업자의 무역 대금 등이 해당됩니다.</p>
+   <p><b>어려운 지점:</b> 한국의 지불자는 원화 계좌이체를 사용하는 경우가 많지만, 해외 기업은 한국에 법인이나 은행 계좌가 없어 원화를 직접 받을 수 없습니다.</p>
+   <p><b>모인의 역할:</b> 해외 기업을 대신해 한국 내 가상계좌를 발급합니다. 한국 지불자가 그 계좌로 원화를 입금하면 모인이 이를 취합해 해외 기업에 정산합니다. 해외 기업은 한국 법인 설립 없이 원화를 수납할 수 있습니다. 모인은 처리 건별 수수료와 환전 마진으로 수익을 얻습니다.</p>
+  </div>
+  <div class="card task chosen">
+   <span class="badge">HSO 선택 과제</span>
+   <h3><span class="pill">과제2</span>타발 송금</h3>
+   <p><b>상황:</b> 해외 송금·결제 사업자가 자사 고객의 자금을 한국 수취인에게 보내야 하는 경우입니다. 해외 거주자의 한국 상대 송금, 글로벌 플랫폼의 한국 판매자 정산 등이 해당됩니다. (타발은 한국 입장에서 해외에서 들어오는 송금을 가리키는 업계 용어입니다.)</p>
+   <p><b>어려운 지점:</b> 마지막에 한국 수취인의 은행 계좌로 원화를 넣어주는 단계가 필요합니다. 이 단계는 한국 라이선스와 국내 은행 연결이 있어야 하므로 해외 사업자가 직접 수행할 수 없습니다.</p>
+   <p><b>모인의 역할:</b> 모인이 그 최종 구간을 대행합니다. 해외 사업자가 지급 지시와 자금을 모인에 전달하면, 모인이 한국 수취인 계좌로 원화를 지급합니다. 해외 사업자는 라이선스 취득 없이 한국 코리도를 지원할 수 있습니다. 모인은 처리 건별 수수료와 환전 마진으로 수익을 얻습니다.</p>
+  </div>
+ </div>
+ <div class="card qs">
+  <h3>공통 문항</h3>
+  <p>선택하신 과제에 대해 아래 세 문항을 작성해주세요.</p>
+  <ol class="ql">
+   <li><a class="qlink" href="#report" data-q="q1"><b>Q1. 타겟 시장 정의:</b> 어떤 국가와 업종에 우선 접근하는 것이 합리적인지 정의해주세요. 우선순위와 그 근거, 판단에 사용한 지표 및 가정을 함께 기술해주세요.<span class="go">답변 보기 →</span></a></li>
+   <li><a class="qlink" href="#report" data-q="q2"><b>Q2. 1순위 세그먼트 실전 공략:</b> Q1에서 1순위로 선정한 세그먼트 내 실제 기업 한 곳을 대상으로, 아래 세 항목을 작성해주세요.<span class="go">답변 보기 →</span></a>
+    <ul class="sub">
+     <li><a class="qlink" href="#report" data-q="q2a">(a) 해당 기업의 현재 자금 처리 방식 추정 및 그 추정의 근거<span class="go">→</span></a></li>
+     <li><a class="qlink" href="#report" data-q="q2b">(b) 모인 서비스 도입 시의 편익과 고객이 도입을 유보할 요인<span class="go">→</span></a></li>
+     <li><a class="qlink" href="#report" data-q="q2c">(c) 커뮤니케이션 전략 (접촉 대상, 제시할 핵심 논거, 접근 순서)<span class="go">→</span></a></li>
+    </ul></li>
+   <li><a class="qlink" href="#report" data-q="q3"><b>Q3. 계약 이후:</b> 계약 직후 이 고객은 전체 거래 중 일부만 모인을 통해 처리할 가능성이 높습니다. 3개월 안에 모인으로 처리하는 비중을 늘리기 위해 무엇을 하시겠습니까?<span class="go">답변 보기 →</span></a></li>
+  </ol>
+ </div>
+</div>
+</div></section>
 
 <!-- ================= OVERVIEW ================= -->
 <section id="p-overview"><div class="wrap">
@@ -155,22 +256,22 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <div data-lang="en">
  <div class="hero">
   <h2>A hypothesis to test: Tipalti's Korea band</h2>
-  <p>From public sources, US payout infrastructure that pays Korean individuals looks like an additional segment worth testing, with <b>Tipalti</b> as the first account. Tipalti moves US$75B a year and appears to pick providers by amount. Creators and freelancers mostly sit under the US$100k cap and pay about 160 bp today, against a MOIN wholesale price of about 37 bp in my model. If netting is allowed, inbound USD could also offset MOIN's USD outflows.</p>
+  <p>From public sources, US payout infrastructure that pays Korean individuals looks like an additional segment worth testing, with <b>Tipalti</b> as the first account. Tipalti moves US$75B a year and appears to pick providers by amount. Creators and freelancers mostly sit under the US$100k cap and pay about 1.60% (160 bp) today, against a MOIN wholesale price of about 0.37% (37 bp) in my model. If netting is allowed, inbound USD could also offset MOIN's USD outflows.</p>
   <p class="muted" style="margin-top:.6rem">I come from US/EU business operations, not remittance. This is an outside view built on public data; MOIN's internal numbers may well reorder it.</p>
  </div>
  <div class="cards">
-  <div class="kc"><div class="v">$75B</div><div class="l">Tipalti annualised volume, +30% YoY; customers incl. Udemy, AppLovin <a href="https://tipalti.com/press/tipalti-growth-financing-ai-innovation/" target="_blank">[src]</a></div></div>
-  <div class="kc"><div class="v">$100k</div><div class="l">§2-31 cap per resident per year; binds sellers far sooner than individuals <a href="https://govbrief.kr/scan/2100000285140/2-31/" target="_blank">[src]</a></div></div>
-  <div class="kc"><div class="v">≈53%</div><div class="l">Share of creator income earned by the bottom 90% (avg ≈₩42M) <a href="https://www.yna.co.kr/view/AKR20260215024600002" target="_blank">[src]</a></div></div>
-  <div class="kc"><div class="v">≈51%</div><div class="l">US share of Korea's outbound personal transfers, Jan–Aug 2025 <a href="https://www.etoday.co.kr/news/view/2515211" target="_blank">[src]</a></div></div>
-  <div class="kc"><div class="v">160 → 40 bp</div><div class="l">Patreon/Payoneer payee cost vs the model's MOIN wholesale base <a href="https://support.patreon.com/hc/en-us/articles/39694936541965-Payouts-guide-for-creators-outside-of-the-US" target="_blank">[src]</a></div></div>
+  <div class="kc"><div class="v">$75B</div><div class="l">Tipalti annualised volume, +30% YoY; customers incl. Udemy, AppLovin<sup class="ref"><a class="cite" href="#src-en-8">[8]</a></sup></div></div>
+  <div class="kc"><div class="v">$100k</div><div class="l">§2-31 cap per resident per year; binds sellers far sooner than individuals<sup class="ref"><a class="cite" href="#src-en-1">[1]</a></sup></div></div>
+  <div class="kc"><div class="v">≈53%</div><div class="l">Share of creator income earned by the bottom 90% (avg ≈₩42M)<sup class="ref"><a class="cite" href="#src-en-3">[3]</a></sup></div></div>
+  <div class="kc"><div class="v">≈51%</div><div class="l">US share of Korea's outbound personal transfers, Jan–Aug 2025<sup class="ref"><a class="cite" href="#src-en-9">[9]</a></sup></div></div>
+  <div class="kc"><div class="v">1.60% → 0.40%</div><div class="l">Patreon/Payoneer payee cost vs the model's MOIN wholesale base<sup class="ref"><a class="cite" href="#src-en-4">[4]</a></sup></div></div>
   <div class="kc"><div class="v">₩0.34B/yr</div><div class="l">Tipalti at month 12, base case (range ₩0.06–1.16B)</div></div>
  </div>
  <div class="ov">
   <div class="card"><h3>Why I looked at individuals</h3>
-   <p>Reading the cap rules, individual payees seem to fit MOIN's licence better than large sellers. The bottom 90% of Korean creators average ≈₩42M a year, well under the ≈₩140M cap, and earn about half of all creator income. Large Amazon and TikTok Shop sellers clear the cap easily, and Payoneer has served them with Shinhan Bank since 2022 <a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=451281" target="_blank">[src]</a>. Diaspora and seller flows are likely already well served, and core to MOIN in the diaspora case; this is meant as an extra angle on top.</p></div>
+   <p>Reading the cap rules, individual payees seem to fit MOIN's licence better than large sellers. The bottom 90% of Korean creators average ≈₩42M a year, well under the ≈₩140M cap, and earn about half of all creator income. Large Amazon and TikTok Shop sellers clear the cap easily, and Payoneer has served them with Shinhan Bank since 2022<sup class="ref"><a class="cite" href="#src-en-2">[2]</a></sup>. Diaspora and seller flows are likely already well served, and core to MOIN in the diaspora case; this is meant as an extra angle on top.</p></div>
   <div class="card"><h3>Where a cost edge could come from</h3>
-   <p>About half of what Koreans send abroad goes to the US, and MOIN handles tuition for 3,000+ universities <a href="https://global.themoin.com/?hl=en" target="_blank">[src]</a>, so its outbound book is probably USD-heavy. If 상계 is permitted, inbound USD could fund that outflow. In the base case that adds ≈₩34M a year, roughly a tenth of revenue.</p></div>
+   <p>About half of what Koreans send abroad goes to the US, and MOIN handles tuition for 3,000+ universities<sup class="ref"><a class="cite" href="#src-en-10">[10]</a></sup>, so its outbound book is probably USD-heavy. If 상계 is permitted, inbound USD could fund that outflow. In the base case that adds ≈₩34M a year, roughly a tenth of revenue.</p></div>
   <div class="card"><h3>What I would ask MOIN first</h3><ul>
    <li>Does your data support Korea at ~0.4% of Tipalti-type volume, with ~50% under the cap?</li>
    <li>Is 상계 under §2-31⑥ workable, and in what form?</li>
@@ -180,8 +281,8 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
  </div>
  <div class="qa">
   <div class="card"><h3><span class="pill">Q1</span>Target market</h3><p>On my public-data scoring, US payout infrastructure paying Korean individuals comes out at 3.75, just ahead of selling to creator and gig platforms directly (3.65), because one integration could bring many platforms. Payroll/EOR and the EU via the EMI follow at 3.30. Diaspora MTOs score 2.60 here mainly because the segment already looks well covered.</p></div>
-  <div class="card"><h3><span class="pill">Q2</span>Tipalti</h3><p>Tipalti says it picks providers "based on the payment method, payee currency and payment provider threshold" <a href="https://help.tipalti.com/hc/en-us/articles/31314361313815-Payment-methods-coverage-US-ROW" target="_blank">[src]</a>. If that holds for Korea, MOIN could propose sub-$5k individual payouts and leave the banks the rest. The estimated pool is ₩7–31.5B a month. The pitch I would test: T+0/T+1 instead of T+2/T+3, and a lower cost per payout.</p></div>
-  <div class="card"><h3><span class="pill">Q3</span>First 90 days</h3><p>Proposed ramp: month 1 new Tipalti customers (≈10%), month 2 all sub-$5k individual payouts (≈25%), month 3 the $5k–20k band plus an EU pilot (35–40%). On the model's numbers a 3 bp tier discount costs ₩0.03B a year and adds ₩0.13B.</p></div>
+  <div class="card"><h3><span class="pill">Q2</span>Tipalti</h3><p>Tipalti says it picks providers "based on the payment method, payee currency and payment provider threshold"<sup class="ref"><a class="cite" href="#src-en-7">[7]</a></sup>. If that holds for Korea, MOIN could propose sub-$5k individual payouts and leave the banks the rest. The estimated pool is ₩7–31.5B a month. The pitch I would test: T+0/T+1 instead of T+2/T+3, and a lower cost per payout.</p></div>
+  <div class="card"><h3><span class="pill">Q3</span>First 90 days</h3><p>Proposed ramp: month 1 new Tipalti customers (≈10%), month 2 all sub-$5k individual payouts (≈25%), month 3 the $5k–20k band plus an EU pilot (35–40%). On the model's numbers a 0.03% (3 bp) tier discount costs ₩0.03B a year and adds ₩0.13B.</p></div>
  </div>
  <p class="muted note">A1–A9 are my assumptions. Change them in the <b>Model</b> tab.</p>
 </div>
@@ -189,22 +290,22 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <div data-lang="ko">
  <div class="hero">
   <h2>검증해 보고 싶은 가설: Tipalti 한국 지급 구간</h2>
-  <p>공개 자료 기준으로 판단하면, 한국 개인에게 지급하는 미국 지급 인프라는 추가로 검증해 볼 만한 세그먼트이고, 첫 대상으로 <b>Tipalti</b>를 제안함. Tipalti는 연 750억 달러를 처리하고 금액 구간에 따라 지급 파트너를 나눠 쓰는 것으로 보임. 크리에이터·프리랜서는 대부분 연 10만 달러 한도 안에 있고 지금 160 bp 안팎을 내는데, 모델상 모인 도매가는 37 bp 수준. 상계가 허용된다면 들어오는 USD로 모인 당발 USD를 메울 수도 있음.</p>
+  <p>공개 자료 기준으로 판단하면, 한국 개인에게 지급하는 미국 지급 인프라는 추가로 검증해 볼 만한 세그먼트이고, 첫 대상으로 <b>Tipalti</b>를 제안함. Tipalti는 연 750억 달러를 처리하고 금액 구간에 따라 지급 파트너를 나눠 쓰는 것으로 보임. 크리에이터·프리랜서는 대부분 연 10만 달러 한도 안에 있고 지금 1.60%(160 bp) 안팎을 내는데, 모델상 모인 도매가는 0.37%(37 bp) 수준. 상계가 허용된다면 들어오는 USD로 모인 당발 USD를 메울 수도 있음.</p>
   <p class="muted" style="margin-top:.6rem">송금 업계가 아닌 미국·EU 사업 운영 쪽 경력에서 나온 외부 시각이고, 공개 자료만으로 세운 가설임. 모인 내부 데이터로 순서가 바뀔 수 있음.</p>
  </div>
  <div class="cards">
-  <div class="kc"><div class="v">$75B</div><div class="l">Tipalti 연환산 결제액, 전년 대비 +30%. Udemy·AppLovin 등이 고객 <a href="https://tipalti.com/press/tipalti-growth-financing-ai-innovation/" target="_blank">[출처]</a></div></div>
-  <div class="kc"><div class="v">$100k</div><div class="l">§2-31 거주자 1인당 연간 한도. 개인보다 셀러에게 훨씬 빨리 걸림 <a href="https://govbrief.kr/scan/2100000285140/2-31/" target="_blank">[출처]</a></div></div>
-  <div class="kc"><div class="v">≈53%</div><div class="l">하위 90% 창작자가 가져간 수입 비중(평균 약 4,200만 원) <a href="https://www.yna.co.kr/view/AKR20260215024600002" target="_blank">[출처]</a></div></div>
-  <div class="kc"><div class="v">≈51%</div><div class="l">2025년 1–8월 개인 해외송금 중 미국행 비중 <a href="https://www.etoday.co.kr/news/view/2515211" target="_blank">[출처]</a></div></div>
-  <div class="kc"><div class="v">160 → 40 bp</div><div class="l">Patreon/Payoneer 수취인 비용 vs 모델상 모인 도매 기준가 <a href="https://support.patreon.com/hc/en-us/articles/39694936541965-Payouts-guide-for-creators-outside-of-the-US" target="_blank">[출처]</a></div></div>
+  <div class="kc"><div class="v">$75B</div><div class="l">Tipalti 연환산 결제액, 전년 대비 +30%. Udemy·AppLovin 등이 고객<sup class="ref"><a class="cite" href="#src-ko-8">[8]</a></sup></div></div>
+  <div class="kc"><div class="v">$100k</div><div class="l">§2-31 거주자 1인당 연간 한도. 개인보다 셀러에게 훨씬 빨리 걸림<sup class="ref"><a class="cite" href="#src-ko-1">[1]</a></sup></div></div>
+  <div class="kc"><div class="v">≈53%</div><div class="l">하위 90% 창작자가 가져간 수입 비중(평균 약 4,200만 원)<sup class="ref"><a class="cite" href="#src-ko-3">[3]</a></sup></div></div>
+  <div class="kc"><div class="v">≈51%</div><div class="l">2025년 1–8월 개인 해외송금 중 미국행 비중<sup class="ref"><a class="cite" href="#src-ko-9">[9]</a></sup></div></div>
+  <div class="kc"><div class="v">1.60% → 0.40%</div><div class="l">Patreon/Payoneer 수취인 비용 vs 모델상 모인 도매 기준가<sup class="ref"><a class="cite" href="#src-ko-4">[4]</a></sup></div></div>
   <div class="kc"><div class="v">₩0.34B/년</div><div class="l">기준 시나리오, Tipalti 12개월 차(범위 ₩0.06–1.16B)</div></div>
  </div>
  <div class="ov">
   <div class="card"><h3>개인 수취인을 먼저 본 이유</h3>
-   <p>한도 규정만 놓고 보면 대형 셀러보다 개인 수취인이 모인 라이선스에 더 잘 맞는다고 판단했음. 하위 90% 창작자의 연평균 수입은 약 4,200만 원으로 한도(약 1.4억 원)보다 한참 낮고, 이들이 창작자 전체 수입의 절반가량을 가져감. 아마존·틱톡샵 대형 셀러는 한도를 쉽게 넘기고, 2022년부터 Payoneer가 신한은행과 함께 서비스하고 있음 <a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=451281" target="_blank">[출처]</a>. 재외동포·셀러 시장은 이미 잘 서비스되고 있고 재외동포 송금은 모인의 핵심 사업일 가능성이 커서, 이 제안은 그 위에 더해 볼 각도임.</p></div>
+   <p>한도 규정만 놓고 보면 대형 셀러보다 개인 수취인이 모인 라이선스에 더 잘 맞는다고 판단했음. 하위 90% 창작자의 연평균 수입은 약 4,200만 원으로 한도(약 1.4억 원)보다 한참 낮고, 이들이 창작자 전체 수입의 절반가량을 가져감. 아마존·틱톡샵 대형 셀러는 한도를 쉽게 넘기고, 2022년부터 Payoneer가 신한은행과 함께 서비스하고 있음<sup class="ref"><a class="cite" href="#src-ko-2">[2]</a></sup>. 재외동포·셀러 시장은 이미 잘 서비스되고 있고 재외동포 송금은 모인의 핵심 사업일 가능성이 커서, 이 제안은 그 위에 더해 볼 각도임.</p></div>
   <div class="card"><h3>원가 우위가 나올 수 있는 지점</h3>
-   <p>국내 개인 해외송금의 절반 정도가 미국으로 나가고, 모인은 제휴 대학 3,000곳 이상의 학비 송금을 처리하므로 당발 USD 비중이 높을 것으로 추정함 <a href="https://global.themoin.com/?hl=en" target="_blank">[출처]</a>. 상계가 허용된다면 들어오는 USD로 이 수요를 메울 수 있음. 기준 시나리오에서는 연 약 ₩34M, 매출의 10% 정도.</p></div>
+   <p>국내 개인 해외송금의 절반 정도가 미국으로 나가고, 모인은 제휴 대학 3,000곳 이상의 학비 송금을 처리하므로 당발 USD 비중이 높을 것으로 추정함<sup class="ref"><a class="cite" href="#src-ko-10">[10]</a></sup>. 상계가 허용된다면 들어오는 USD로 이 수요를 메울 수 있음. 기준 시나리오에서는 연 약 ₩34M, 매출의 10% 정도.</p></div>
   <div class="card"><h3>모인 팀에 먼저 묻고 싶은 것</h3><ul>
    <li>Tipalti 같은 사업자의 한국 비중을 0.4%, 그중 한도 내 비중을 50%로 잡은 가정이 내부 데이터와 맞는지.</li>
    <li>§2-31⑥ 기준으로 상계가 가능한지, 가능하다면 어떤 방식인지.</li>
@@ -214,8 +315,8 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
  </div>
  <div class="qa">
   <div class="card"><h3><span class="pill">Q1</span>타깃 시장</h3><p>공개 자료로 매긴 점수에서는 미국 지급 인프라 → 한국 개인이 3.75점, 플랫폼 직접 영업(3.65)이 근소한 차이로 다음. 연동 한 번에 여러 플랫폼을 확보할 수 있다고 보았기 때문. 급여·EOR과 EU EMI는 3.30. 재외동포 송금(2.60)은 이미 잘 서비스되는 시장이라 이 기준에서 점수가 낮게 나왔음.</p></div>
-  <div class="card"><h3><span class="pill">Q2</span>Tipalti</h3><p>Tipalti는 지급 수단, 수취 통화, 파트너별 처리 한도로 파트너를 고른다고 밝힘 <a href="https://help.tipalti.com/hc/en-us/articles/31314361313815-Payment-methods-coverage-US-ROW" target="_blank">[출처]</a>. 한국에도 같은 방식이라면 은행 파트너는 그대로 두고 5천 달러 미만 개인 지급을 제안해 볼 수 있음. 추정 대상 물량은 월 ₩7–31.5B. 검증하고 싶은 제안 포인트는 T+2/T+3를 T+0/T+1로 당기는 것과 건당 원가 인하.</p></div>
-  <div class="card"><h3><span class="pill">Q3</span>계약 후 90일</h3><p>제안하는 경로는 1개월 차 신규 고객 물량(약 10%), 2개월 차 5천 달러 미만 개인 지급 전체(약 25%), 3개월 차 5천–2만 달러 구간과 EU 파일럿(35–40%). 모델 숫자로는 3 bp 구간 할인이 연 ₩0.03B를 쓰고 ₩0.13B를 더함.</p></div>
+  <div class="card"><h3><span class="pill">Q2</span>Tipalti</h3><p>Tipalti는 지급 수단, 수취 통화, 파트너별 처리 한도로 파트너를 고른다고 밝힘<sup class="ref"><a class="cite" href="#src-ko-7">[7]</a></sup>. 한국에도 같은 방식이라면 은행 파트너는 그대로 두고 5천 달러 미만 개인 지급을 제안해 볼 수 있음. 추정 대상 물량은 월 ₩7–31.5B. 검증하고 싶은 제안 포인트는 T+2/T+3를 T+0/T+1로 당기는 것과 건당 원가 인하.</p></div>
+  <div class="card"><h3><span class="pill">Q3</span>계약 후 90일</h3><p>제안하는 경로는 1개월 차 신규 고객 물량(약 10%), 2개월 차 5천 달러 미만 개인 지급 전체(약 25%), 3개월 차 5천–2만 달러 구간과 EU 파일럿(35–40%). 모델 숫자로는 0.03%(3 bp) 구간 할인이 연 ₩0.03B를 쓰고 ₩0.13B를 더함.</p></div>
  </div>
  <p class="muted note">A1–A9는 자체 가정. <b>모델</b> 탭에서 바꿔 볼 수 있음.</p>
 </div>
@@ -282,20 +383,20 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <p><strong>Hypothesis: US payout infrastructure that pays Korean individuals is an additional segment worth testing, and Tipalti is the account I would test it on first.</strong></p>
 <ul>
 <li>The §2-31 cap (US$100k per person per year) binds business sellers quickly. Most creators, instructors and freelancers appear to sit under it.</li>
-<li>Payees pay 1–1.6% in visible fees today, so a wholesale price around 40 bp would still leave Tipalti a margin.</li>
+<li>Payees pay 1–1.6% in visible fees today, so a wholesale price around 0.40% (40 bp) would still leave Tipalti a margin.</li>
 <li>Public data suggests MOIN's outbound flow leans on USD. If so, inbound USD could be netted against it, a cost lever an inbound-only provider would not have.</li>
 <li>Base case: Tipalti alone is worth ₩0.34B/yr at month 12. The bigger question for me is whether the same integration carries over to Trolley, Hyperwallet or Deel.</li>
 </ul>
 </blockquote>
 <p><strong>How to read this.</strong> I come from US/EU business operations, not from remittance. Everything below is built from public sources, so MOIN's internal data on volumes, partners and margins may well change the ranking. I have written down how I would test each step, and the questions I would want to ask the team.</p>
 <hr />
-<h2>Q1. Target market: platforms that pay individuals</h2>
+<h2 id="r-en-q1">Q1. Target market: platforms that pay individuals</h2>
 <p><strong>Reading the cap rules alone, marketplace sellers fit poorly and individual payees fit well.</strong></p>
 <ul>
-<li>The cap is US$100k per resident per year. Non-residents and foreign residents get US$5k per transaction and US$50k per year <a class="cite" href="#src-en-1">[1]</a>.</li>
-<li>Large Amazon or TikTok Shop sellers clear US$100k easily, and Payoneer has served them with Shinhan Bank since 2022 <a class="cite" href="#src-en-2">[2]</a>.</li>
-<li>In 2024, 34,806 Korean creators declared ₩2.47T. The top 10% averaged ₩333M, well above the cap (≈₩140M at ₩1,400/$ [A3]). The other 90% averaged ≈₩42M and took ~53% of the total <a class="cite" href="#src-en-3">[3]</a> (my calculation from NTS bands).</li>
-<li>Payees pay $0.25 + 1.55% on Patreon via Payoneer, or 1% via PayPal <a class="cite" href="#src-en-4">[4]</a>. Upwork charges $0.99 per KRW withdrawal plus FX <a class="cite" href="#src-en-5">[5]</a>; Deel's transfer is free but it adds FX fees <a class="cite" href="#src-en-6">[6]</a>. Tipalti's KRW wire takes T+3 with a US$20k cap, and its KRW local transfer T+2–T+3 <a class="cite" href="#src-en-7">[7]</a>.</li>
+<li>The cap is US$100k per resident per year. Non-residents and foreign residents get US$5k per transaction and US$50k per year <sup class="ref"><a class="cite" href="#src-en-1">[1]</a></sup>.</li>
+<li>Large Amazon or TikTok Shop sellers clear US$100k easily, and Payoneer has served them with Shinhan Bank since 2022 <sup class="ref"><a class="cite" href="#src-en-2">[2]</a></sup>.</li>
+<li>In 2024, 34,806 Korean creators declared ₩2.47T. The top 10% averaged ₩333M, well above the cap (≈₩140M at ₩1,400/$ [A3]). The other 90% averaged ≈₩42M and took ~53% of the total <sup class="ref"><a class="cite" href="#src-en-3">[3]</a></sup> (my calculation from NTS bands).</li>
+<li>Payees pay $0.25 + 1.55% on Patreon via Payoneer, or 1% via PayPal <sup class="ref"><a class="cite" href="#src-en-4">[4]</a></sup>. Upwork charges $0.99 per KRW withdrawal plus FX <sup class="ref"><a class="cite" href="#src-en-5">[5]</a></sup>; Deel's transfer is free but it adds FX fees <sup class="ref"><a class="cite" href="#src-en-6">[6]</a></sup>. Tipalti's KRW wire takes T+3 with a US$20k cap, and its KRW local transfer T+2–T+3 <sup class="ref"><a class="cite" href="#src-en-7">[7]</a></sup>.</li>
 </ul>
 <p>On that basis I looked at platforms that pay individuals, and at the payout providers behind them as a possibly faster route in.</p>
 <p><strong>Segment scoring</strong> (1–5; weights in brackets; scored by me from public sources, so MOIN's own data could reorder them; the dashboard re-weights live)</p>
@@ -395,30 +496,30 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 </tbody>
 </table>
-<p>I put A (3.75) just above B (3.65) because of aggregation. It is the same money, but one integration with a payout provider could bring its platform customers along. Tipalti's customers include Udemy (instructor payouts) and AppLovin (publisher payouts) <a class="cite" href="#src-en-8">[8]</a>. B stays the direct list for platforms with in-house payouts (Patreon, Upwork).</p>
+<p>I put A (3.75) just above B (3.65) because of aggregation. It is the same money, but one integration with a payout provider could bring its platform customers along. Tipalti's customers include Udemy (instructor payouts) and AppLovin (publisher payouts) <sup class="ref"><a class="cite" href="#src-en-8">[8]</a></sup>. B stays the direct list for platforms with in-house payouts (Patreon, Upwork).</p>
 <p>The lower scores for G (diaspora MTOs) and E (seller payouts) do not mean those segments are unattractive. They look well served already, and diaspora flows are likely core to MOIN today. This proposal is meant as an additional angle on top of that business, not a replacement for it.</p>
 <p><strong>Where MOIN may have an edge (from public information)</strong></p>
 <ul>
-<li>Netting. ₩1.60T of the ₩3.14T Korea sent abroad in personal transfers in Jan–Aug 2025 (~51%) went to the US <a class="cite" href="#src-en-9">[9]</a>, and MOIN serves 3,000+ universities for outbound tuition <a class="cite" href="#src-en-10">[10]</a>, which points to a USD-heavy outbound book. If netting is allowed, inbound USD could fund that outflow and reduce both FX spread and prefunding.</li>
-<li>Real-time local credit <a class="cite" href="#src-en-10">[10]</a>, at least a day faster than Tipalti's current T+2/T+3 <a class="cite" href="#src-en-7">[7]</a>, with US-side rails already in place through Wise, Nium and CurrencyCloud <a class="cite" href="#src-en-10">[10]</a><a class="cite" href="#src-en-11">[11]</a>.</li>
+<li>Netting. ₩1.60T of the ₩3.14T Korea sent abroad in personal transfers in Jan–Aug 2025 (~51%) went to the US <sup class="ref"><a class="cite" href="#src-en-9">[9]</a></sup>, and MOIN serves 3,000+ universities for outbound tuition <sup class="ref"><a class="cite" href="#src-en-10">[10]</a></sup>, which points to a USD-heavy outbound book. If netting is allowed, inbound USD could fund that outflow and reduce both FX spread and prefunding.</li>
+<li>Real-time local credit <sup class="ref"><a class="cite" href="#src-en-10">[10]</a></sup>, at least a day faster than Tipalti's current T+2/T+3 <sup class="ref"><a class="cite" href="#src-en-7">[7]</a></sup>, with US-side rails already in place through Wise, Nium and CurrencyCloud <sup class="ref"><a class="cite" href="#src-en-10">[10]</a></sup><sup class="ref"><a class="cite" href="#src-en-11">[11]</a></sup>.</li>
 </ul>
-<p>The order I would propose: A first, B in parallel as direct deals, then D (EU via the EMI) in months 6–12. Japan marketplaces (Qoo10 Japan K-beauty GMV ~¥150B <a class="cite" href="#src-en-12">[12]</a>) later.</p>
+<p>The order I would propose: A first, B in parallel as direct deals, then D (EU via the EMI) in months 6–12. Japan marketplaces (Qoo10 Japan K-beauty GMV ~¥150B <sup class="ref"><a class="cite" href="#src-en-12">[12]</a></sup>) later.</p>
 <p><strong>Hypotheses I would test first</strong></p>
 <ul>
 <li>H1. Korea's share of Tipalti volume (A1, base 0.4%).</li>
 <li>H2. The cap-eligible share of that (A2, base 50%; creator data suggests ~53%).</li>
 </ul>
 <hr />
-<h2>Q2. Tipalti: start with sub-$5k individual payouts</h2>
+<h2 id="r-en-q2">Q2. Tipalti: start with sub-$5k individual payouts</h2>
 <p><strong>Tipalti appears to split providers by amount, so MOIN could aim for one band and leave the banks in place.</strong></p>
 <ul>
-<li>US$75B annualised volume (+30% YoY), US$200M+ ARR, 5,000+ customers. Named partners: Citi, Wells Fargo, J.P. Morgan, Visa <a class="cite" href="#src-en-8">[8]</a>.</li>
-<li>Korea is paid by KRW wire (T+3, US$100–20k), USD wire (T to T+1) or KRW local transfer (T+2–T+3) <a class="cite" href="#src-en-7">[7]</a>.</li>
-<li>Tipalti says "appropriate payment providers are determined based on the payment method, payee currency and payment provider threshold" <a class="cite" href="#src-en-7">[7]</a>.</li>
+<li>US$75B annualised volume (+30% YoY), US$200M+ ARR, 5,000+ customers. Named partners: Citi, Wells Fargo, J.P. Morgan, Visa <sup class="ref"><a class="cite" href="#src-en-8">[8]</a></sup>.</li>
+<li>Korea is paid by KRW wire (T+3, US$100–20k), USD wire (T to T+1) or KRW local transfer (T+2–T+3) <sup class="ref"><a class="cite" href="#src-en-7">[7]</a></sup>.</li>
+<li>Tipalti says "appropriate payment providers are determined based on the payment method, payee currency and payment provider threshold" <sup class="ref"><a class="cite" href="#src-en-7">[7]</a></sup>.</li>
 </ul>
 <p>If that reading is right, several providers per corridor is already normal for Tipalti, and sub-US$5k individual payouts would be a natural first band to propose.</p>
 <p>The first thing I would ask in discovery: who is Tipalti's Korean partner today, and what does it cost per payout? Neither is public, and the answer could change the whole case.</p>
-<p><strong>(a) Fund-flow estimate</strong></p>
+<p id="r-en-q2a"><strong>(a) Fund-flow estimate</strong></p>
 <table>
 <thead>
 <tr>
@@ -435,7 +536,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td>$75B</td>
 <td>$75B</td>
 <td>$75B</td>
-<td><a class="cite" href="#src-en-8">[8]</a></td>
+<td><sup class="ref"><a class="cite" href="#src-en-8">[8]</a></sup></td>
 </tr>
 <tr>
 <td>Share paid to Korea [A1]</td>
@@ -449,7 +550,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td>40%</td>
 <td>50%</td>
 <td>60%</td>
-<td>NTS creator distribution ≈53% <a class="cite" href="#src-en-3">[3]</a></td>
+<td>NTS creator distribution ≈53% <sup class="ref"><a class="cite" href="#src-en-3">[3]</a></sup></td>
 </tr>
 <tr>
 <td><strong>Eligible KRW pool / month</strong> (₩1,400/$ [A3])</td>
@@ -467,7 +568,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 </tbody>
 </table>
-<p><strong>(b) Revenue model (to MOIN)</strong></p>
+<p><strong>Revenue model (to MOIN)</strong></p>
 <p>Revenue = routed volume × FX margin + payouts × fee + netted USD × spread saved − prefunding cost</p>
 <table>
 <thead>
@@ -481,9 +582,9 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <tbody>
 <tr>
 <td>Wholesale FX margin to Tipalti [A5]</td>
-<td>20 bp</td>
-<td>30 bp</td>
-<td>40 bp</td>
+<td>0.20%</td>
+<td>0.30%</td>
+<td>0.40%</td>
 </tr>
 <tr>
 <td>Fee per payout [A6]</td>
@@ -493,9 +594,9 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 <tr>
 <td>USD netted vs MOIN outbound × spread saved [A7]</td>
-<td>30% × 5 bp</td>
-<td>50% × 8 bp</td>
-<td>70% × 10 bp</td>
+<td>30% × 0.05%</td>
+<td>50% × 0.08%</td>
+<td>70% × 0.10%</td>
 </tr>
 <tr>
 <td>Prefund days at 4% [A8]</td>
@@ -505,9 +606,9 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 <tr>
 <td><strong>All-in yield</strong></td>
-<td><strong>22 bp</strong></td>
-<td><strong>40 bp</strong></td>
-<td><strong>61 bp</strong></td>
+<td><strong>0.22%</strong></td>
+<td><strong>0.40%</strong></td>
+<td><strong>0.61%</strong></td>
 </tr>
 <tr>
 <td><strong>Share at months 3 / 6 / 12 after go-live</strong> [A9]</td>
@@ -524,11 +625,11 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tbody>
 </table>
 <ul>
-<li>40 bp is 60–120 bp below what payees pay today <a class="cite" href="#src-en-4">[4]</a><a class="cite" href="#src-en-5">[5]</a>. Whether Tipalti keeps that as margin or cuts payee prices is its call.</li>
+<li>0.40% is 0.6–1.2 percentage points below what payees pay today <sup class="ref"><a class="cite" href="#src-en-4">[4]</a></sup><sup class="ref"><a class="cite" href="#src-en-5">[5]</a></sup>. Whether Tipalti keeps that as margin or cuts payee prices is its call.</li>
 <li>One account is about ₩0.34B/yr. It becomes meaningful only if the same integration and compliance pack can be reused at Trolley, Hyperwallet, Deel, Upwork and Patreon (the dashboard's "similar accounts" lever).</li>
-<li>Two things are left out of the numbers. Business payees, such as Korean game studios paid by AppLovin, could use MOIN's invoice-based B2B route if compliance confirms it works for inbound <a class="cite" href="#src-en-10">[10]</a>. Tipalti's UK/EU payer book (EU coverage runs separately <a class="cite" href="#src-en-7">[7]</a>) could go through MOIN's EU EMI <a class="cite" href="#src-en-13">[13]</a>.</li>
+<li>Two things are left out of the numbers. Business payees, such as Korean game studios paid by AppLovin, could use MOIN's invoice-based B2B route if compliance confirms it works for inbound <sup class="ref"><a class="cite" href="#src-en-10">[10]</a></sup>. Tipalti's UK/EU payer book (EU coverage runs separately <sup class="ref"><a class="cite" href="#src-en-7">[7]</a></sup>) could go through MOIN's EU EMI <sup class="ref"><a class="cite" href="#src-en-13">[13]</a></sup>.</li>
 </ul>
-<p><strong>What Tipalti gets, and what it will push back on</strong></p>
+<p id="r-en-q2b"><strong>(b) What Tipalti gets, and what it will push back on</strong></p>
 <table>
 <thead>
 <tr>
@@ -543,19 +644,19 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 <tr>
 <td>Lower cost per Korean payout; better margin on its FX markup</td>
-<td>"Small-vendor risk" → FSC/MOEF licences, BoK/FSS reporting <a class="cite" href="#src-en-14">[14]</a>; FIU RBA #1 (2023) <a class="cite" href="#src-en-15">[15]</a>; World Bank-listed <a class="cite" href="#src-en-10">[10]</a></td>
+<td>"Small-vendor risk" → FSC/MOEF licences, BoK/FSS reporting <sup class="ref"><a class="cite" href="#src-en-14">[14]</a></sup>; FIU RBA #1 (2023) <sup class="ref"><a class="cite" href="#src-en-15">[15]</a></sup>; World Bank-listed <sup class="ref"><a class="cite" href="#src-en-10">[10]</a></sup></td>
 </tr>
 <tr>
 <td>One Korean regulated counterparty for KYC, local reporting and returns</td>
-<td>Cap limits <a class="cite" href="#src-en-1">[1]</a> → route only eligible payees to MOIN, keep the rest on wire; cap rules live in the routing table</td>
+<td>Cap limits <sup class="ref"><a class="cite" href="#src-en-1">[1]</a></sup> → route only eligible payees to MOIN, keep the rest on wire; cap rules live in the routing table</td>
 </tr>
 <tr>
-<td>EU coverage later via MOIN's EU EMI (SIA MOIN Payments) <a class="cite" href="#src-en-13">[13]</a></td>
-<td>Integration effort → standard payout API and sandbox; Nium/Wise integration references <a class="cite" href="#src-en-11">[11]</a></td>
+<td>EU coverage later via MOIN's EU EMI (SIA MOIN Payments) <sup class="ref"><a class="cite" href="#src-en-13">[13]</a></sup></td>
+<td>Integration effort → standard payout API and sandbox; Nium/Wise integration references <sup class="ref"><a class="cite" href="#src-en-11">[11]</a></sup></td>
 </tr>
 </tbody>
 </table>
-<p><strong>(c) Stakeholders and sequence</strong></p>
+<p id="r-en-q2c"><strong>(c) Communication: stakeholders, arguments and sequence</strong></p>
 <table>
 <thead>
 <tr>
@@ -586,7 +687,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td>Due-diligence pack in week 1</td>
 </tr>
 <tr>
-<td>Exec sponsor: Chen Amit, CEO &amp; co-founder <a class="cite" href="#src-en-8">[8]</a></td>
+<td>Exec sponsor: Chen Amit, CEO &amp; co-founder <sup class="ref"><a class="cite" href="#src-en-8">[8]</a></sup></td>
 <td>Growth, mid-market reliability</td>
 <td>QBR level only, after the pilot</td>
 </tr>
@@ -601,9 +702,9 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <li><strong>Weeks 10–14:</strong> sandbox, then live with one band.</li>
 </ul>
 <hr />
-<h2>Q3. After signing: add bands one at a time</h2>
+<h2 id="r-en-q3">Q3. After signing: add bands one at a time</h2>
 <p><strong>If Tipalti routes by amount, share should move one band at a time.</strong> My working assumption is that winning bands moves the number more directly than relationship work alone.</p>
-<p>Share = Σ(band share of Tipalti's Korea volume × % of that band routed to MOIN) <a class="cite" href="#src-en-7">[7]</a>.</p>
+<p>Share = Σ(band share of Tipalti's Korea volume × % of that band routed to MOIN) <sup class="ref"><a class="cite" href="#src-en-7">[7]</a></sup>.</p>
 <table>
 <thead>
 <tr>
@@ -624,7 +725,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 <tr>
 <td><strong>2. Expand</strong></td>
-<td>Default provider for <strong>all sub-US$5k individual KRW payouts</strong>; later same-day cut-off; volume tiers (−3 bp above ₩10B/month)</td>
+<td>Default provider for <strong>all sub-US$5k individual KRW payouts</strong>; later same-day cut-off; volume tiers (−0.03% (3 bp) above ₩10B/month)</td>
 <td>Existing sub-$5k payouts</td>
 <td>25%</td>
 <td>Cost ≤ incumbent; tickets ↓</td>
@@ -638,15 +739,15 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 </tbody>
 </table>
-<p>Discount check (base case): going from 25% to 40% share adds ~₩0.13B/yr, while 3 bp off all routed volume costs ~₩0.03B/yr. On these numbers the discount pays for itself if it wins the next band (the dashboard recalculates this live).</p>
+<p>Discount check (base case): going from 25% to 40% share adds ~₩0.13B/yr, while 0.03% off all routed volume costs ~₩0.03B/yr. On these numbers the discount pays for itself if it wins the next band (the dashboard recalculates this live).</p>
 <p>Risks: the cap or netting rules could change. Tipalti could consolidate on one global bank, in which case MOIN stays on as the specialist for one band. USD/KRW swings are handled with same-day conversion and a USD prefund.</p>
 <p><strong>Questions I would want to ask MOIN</strong>
 1. How far does compliance allow inbound/outbound USD netting (상계, §2-31⑥), and in what form?
 2. Can the invoice-based B2B route serve inbound business payees?
 3. Which US payout platforms is MOIN already talking to, and does MOIN know who serves Tipalti in Korea today?
-5. Does MOIN's own data support or contradict the segment ranking above, for example on diaspora or seller flows?
-4. Can an inbound book carry a 30 bp wholesale FX margin?</p>
-<hr /><h2 id="sources-en">Sources</h2><ul class="src"><li id="src-en-1"><b>[1]</b> 외국환거래규정 §2-31 (amended 2025-12-29): <a href="https://govbrief.kr/scan/2100000285140/2-31/" target="_blank">https://govbrief.kr/scan/2100000285140/2-31/</a></li><li id="src-en-2"><b>[2]</b> Shinhan × Payoneer (2022): <a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=451281" target="_blank">https://www.digitaltoday.co.kr/news/articleView.html?idxno=451281</a></li><li id="src-en-3"><b>[3]</b> Yonhap, NTS creator income 2024 (16 Feb 2026): <a href="https://www.yna.co.kr/view/AKR20260215024600002" target="_blank">https://www.yna.co.kr/view/AKR20260215024600002</a></li><li id="src-en-4"><b>[4]</b> Patreon, payouts outside the US: <a href="https://support.patreon.com/hc/en-us/articles/39694936541965-Payouts-guide-for-creators-outside-of-the-US" target="_blank">https://support.patreon.com/hc/en-us/articles/39694936541965-Payouts-guide-for-creators-outside-of-the-US</a></li><li id="src-en-5"><b>[5]</b> Upwork, Direct to Local Bank: <a href="https://support.upwork.com/hc/en-us/articles/211063888-Direct-to-Local-Bank" target="_blank">https://support.upwork.com/hc/en-us/articles/211063888-Direct-to-Local-Bank</a></li><li id="src-en-6"><b>[6]</b> Deel, contractor withdrawals: <a href="https://help.letsdeel.com/hc/en-gb/articles/7338494928913-How-Contractors-Can-Withdraw-Money-From-Deel" target="_blank">https://help.letsdeel.com/hc/en-gb/articles/7338494928913-How-Contractors-Can-Withdraw-Money-From-Deel</a></li><li id="src-en-7"><b>[7]</b> Tipalti, payment methods coverage: <a href="https://help.tipalti.com/hc/en-us/articles/31314361313815-Payment-methods-coverage-US-ROW" target="_blank">https://help.tipalti.com/hc/en-us/articles/31314361313815-Payment-methods-coverage-US-ROW</a></li><li id="src-en-8"><b>[8]</b> Tipalti press release (24 Sep 2025): <a href="https://tipalti.com/press/tipalti-growth-financing-ai-innovation/" target="_blank">https://tipalti.com/press/tipalti-growth-financing-ai-innovation/</a></li><li id="src-en-9"><b>[9]</b> etoday / BoK data via Rep. Park Sung-hoon: <a href="https://www.etoday.co.kr/news/view/2515211" target="_blank">https://www.etoday.co.kr/news/view/2515211</a></li><li id="src-en-10"><b>[10]</b> MOIN global site: <a href="https://global.themoin.com/?hl=en" target="_blank">https://global.themoin.com/?hl=en</a></li><li id="src-en-11"><b>[11]</b> Nium × MOIN: <a href="https://www.nium.com/newsroom/nium-moin-expands-partnershipglobal-remittance-settlement-services" target="_blank">https://www.nium.com/newsroom/nium-moin-expands-partnershipglobal-remittance-settlement-services</a> ; Wise × MOIN: <a href="https://wise.com/gb/blog/moin-wise-platform-partnership" target="_blank">https://wise.com/gb/blog/moin-wise-platform-partnership</a></li><li id="src-en-12"><b>[12]</b> Bizwatch (Qoo10 Japan, 5 Oct 2026): <a href="https://news.bizwatch.co.kr/article/consumer/2026/10/05/0002" target="_blank">https://news.bizwatch.co.kr/article/consumer/2026/10/05/0002</a></li><li id="src-en-13"><b>[13]</b> MOIN EU EMI (10 Jul 2026): <a href="https://en.bloomingbit.io/feed/news/116012" target="_blank">https://en.bloomingbit.io/feed/news/116012</a></li><li id="src-en-14"><b>[14]</b> MOIN BizPlus: <a href="https://www.moinbizplus.com/" target="_blank">https://www.moinbizplus.com/</a></li><li id="src-en-15"><b>[15]</b> MOIN job post: <a href="https://www.wanted.co.kr/wd/378445" target="_blank">https://www.wanted.co.kr/wd/378445</a></li></ul><p><b>Assumptions.</b> A1 Korea share of Tipalti volume; A2 cap-eligible share; A3 ₩1,400/$; A4 average payout; A5 FX margin; A6 fee per payout; A7 USD netting share and spread saved (regulatory treatment of netting/상계 to confirm; see §2-31⑥); A8 prefund days and cost of funds; A9 share ramp. Segment scores are my judgement from public sources.</p>
+4. Can an inbound book carry a 0.30% wholesale FX margin?
+5. Does MOIN's own data support or contradict the segment ranking above, for example on diaspora or seller flows?</p>
+<hr /><h2 id="sources-en">References</h2><ol class="src"><li id="src-en-1"><span class="rn">[1]</span> 외국환거래규정 §2-31 (amended 2025-12-29): <a href="https://govbrief.kr/scan/2100000285140/2-31/" target="_blank">https://govbrief.kr/scan/2100000285140/2-31/</a></li><li id="src-en-2"><span class="rn">[2]</span> Shinhan × Payoneer (2022): <a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=451281" target="_blank">https://www.digitaltoday.co.kr/news/articleView.html?idxno=451281</a></li><li id="src-en-3"><span class="rn">[3]</span> Yonhap, NTS creator income 2024 (16 Feb 2026): <a href="https://www.yna.co.kr/view/AKR20260215024600002" target="_blank">https://www.yna.co.kr/view/AKR20260215024600002</a></li><li id="src-en-4"><span class="rn">[4]</span> Patreon, payouts outside the US: <a href="https://support.patreon.com/hc/en-us/articles/39694936541965-Payouts-guide-for-creators-outside-of-the-US" target="_blank">https://support.patreon.com/hc/en-us/articles/39694936541965-Payouts-guide-for-creators-outside-of-the-US</a></li><li id="src-en-5"><span class="rn">[5]</span> Upwork, Direct to Local Bank: <a href="https://support.upwork.com/hc/en-us/articles/211063888-Direct-to-Local-Bank" target="_blank">https://support.upwork.com/hc/en-us/articles/211063888-Direct-to-Local-Bank</a></li><li id="src-en-6"><span class="rn">[6]</span> Deel, contractor withdrawals: <a href="https://help.letsdeel.com/hc/en-gb/articles/7338494928913-How-Contractors-Can-Withdraw-Money-From-Deel" target="_blank">https://help.letsdeel.com/hc/en-gb/articles/7338494928913-How-Contractors-Can-Withdraw-Money-From-Deel</a></li><li id="src-en-7"><span class="rn">[7]</span> Tipalti, payment methods coverage: <a href="https://help.tipalti.com/hc/en-us/articles/31314361313815-Payment-methods-coverage-US-ROW" target="_blank">https://help.tipalti.com/hc/en-us/articles/31314361313815-Payment-methods-coverage-US-ROW</a></li><li id="src-en-8"><span class="rn">[8]</span> Tipalti press release (24 Sep 2025): <a href="https://tipalti.com/press/tipalti-growth-financing-ai-innovation/" target="_blank">https://tipalti.com/press/tipalti-growth-financing-ai-innovation/</a></li><li id="src-en-9"><span class="rn">[9]</span> etoday / BoK data via Rep. Park Sung-hoon: <a href="https://www.etoday.co.kr/news/view/2515211" target="_blank">https://www.etoday.co.kr/news/view/2515211</a></li><li id="src-en-10"><span class="rn">[10]</span> MOIN global site: <a href="https://global.themoin.com/?hl=en" target="_blank">https://global.themoin.com/?hl=en</a></li><li id="src-en-11"><span class="rn">[11]</span> Nium × MOIN: <a href="https://www.nium.com/newsroom/nium-moin-expands-partnershipglobal-remittance-settlement-services" target="_blank">https://www.nium.com/newsroom/nium-moin-expands-partnershipglobal-remittance-settlement-services</a> ; Wise × MOIN: <a href="https://wise.com/gb/blog/moin-wise-platform-partnership" target="_blank">https://wise.com/gb/blog/moin-wise-platform-partnership</a></li><li id="src-en-12"><span class="rn">[12]</span> Bizwatch (Qoo10 Japan, 5 Oct 2026): <a href="https://news.bizwatch.co.kr/article/consumer/2026/10/05/0002" target="_blank">https://news.bizwatch.co.kr/article/consumer/2026/10/05/0002</a></li><li id="src-en-13"><span class="rn">[13]</span> MOIN EU EMI (10 Jul 2026): <a href="https://en.bloomingbit.io/feed/news/116012" target="_blank">https://en.bloomingbit.io/feed/news/116012</a></li><li id="src-en-14"><span class="rn">[14]</span> MOIN BizPlus: <a href="https://www.moinbizplus.com/" target="_blank">https://www.moinbizplus.com/</a></li><li id="src-en-15"><span class="rn">[15]</span> MOIN job post: <a href="https://www.wanted.co.kr/wd/378445" target="_blank">https://www.wanted.co.kr/wd/378445</a></li></ol><p><b>Assumptions.</b> A1 Korea share of Tipalti volume; A2 cap-eligible share; A3 ₩1,400/$; A4 average payout; A5 FX margin; A6 fee per payout; A7 USD netting share and spread saved (regulatory treatment of netting/상계 to confirm; see §2-31⑥); A8 prefund days and cost of funds; A9 share ramp. Segment scores are my judgement from public sources.</p>
  </div>
  <div class="report" data-lang="ko">
 <h1>미국발 타발송금 가설: Tipalti 한국 지급 구간에서 먼저 검증</h1>
@@ -655,20 +756,20 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <p><strong>가설: 한국 개인에게 지급하는 미국 지급 인프라를 추가 세그먼트로 검증해 볼 만하며, 첫 검증 대상으로 Tipalti를 제안함.</strong></p>
 <ul>
 <li>§2-31 한도(1인당 연 10만 달러)는 사업자 셀러에게 빨리 걸림. 크리에이터·강사·프리랜서 같은 개인 수취인은 대부분 한도 안에 드는 것으로 보았음.</li>
-<li>수취인이 지금 내는 수수료가 1–1.6%라, 도매가 40 bp 안팎이면 Tipalti 마진까지 남을 것으로 계산됨.</li>
+<li>수취인이 지금 내는 수수료가 1–1.6%라, 도매가 0.40%(40 bp) 안팎이면 Tipalti 마진까지 남을 것으로 계산됨.</li>
 <li>공개 자료로는 모인 당발이 USD 비중이 높아 보임. 그렇다면 타발 USD와 상계할 수 있고, 이는 타발만 하는 사업자에게는 없는 원가 수단임.</li>
 <li>기준 시나리오에서 Tipalti 한 곳의 12개월 차 연환산 매출은 ₩0.34B. 더 확인하고 싶은 것은 같은 연동을 Trolley·Hyperwallet·Deel에도 그대로 쓸 수 있는지임.</li>
 </ul>
 </blockquote>
 <p><strong>이 문서의 전제.</strong> 송금 업계가 아니라 미국·EU 사업 운영 쪽에서 일해 온 외부 시각으로, 공개 자료만 가지고 세운 가설임. 물량·파트너·마진에 대한 모인 내부 데이터가 있으면 순위는 충분히 바뀔 수 있음. 각 단계를 어떻게 검증할지와 모인 팀에 묻고 싶은 질문을 함께 적었음.</p>
 <hr />
-<h2>Q1. 타깃 시장: 개인 수취인에게 지급하는 플랫폼</h2>
+<h2 id="r-ko-q1">Q1. 타깃 시장: 개인 수취인에게 지급하는 플랫폼</h2>
 <p><strong>공개된 한도 규정만 놓고 보면, 마켓플레이스 셀러보다 개인 수취인이 모인 라이선스 구조에 더 잘 맞는다고 판단함.</strong></p>
 <ul>
-<li>거주자 1인당 연 10만 달러, 비거주자·외국인거주자는 건당 5천 달러·연 5만 달러 <a class="cite" href="#src-ko-1">[1]</a>.</li>
-<li>아마존·틱톡샵 대형 셀러 매출은 연 10만 달러를 쉽게 넘김. 이 시장에는 Payoneer가 2022년 신한은행과 손잡고 먼저 들어와 있음 <a class="cite" href="#src-ko-2">[2]</a>.</li>
-<li>2024년 1인 미디어 창작자 34,806명이 신고한 수입은 2.47조 원. 상위 10%(평균 3.33억 원)는 한도(₩1,400/$ 기준 약 1.4억 원 [A3])를 넘지만, 나머지 90%는 평균 약 4,200만 원이고 전체 수입의 약 53%를 가져감 <a href="국세청 구간 자료로 직접 계산">3</a>.</li>
-<li>수취인이 지금 내는 비용은 Patreon(Payoneer 경유) $0.25 + 1.55%, PayPal 1% <a class="cite" href="#src-ko-4">[4]</a>. Upwork는 원화 출금 건당 $0.99에 환전 마진이 따로 붙고 <a class="cite" href="#src-ko-5">[5]</a>, Deel은 이체는 무료지만 환전 수수료를 받음 <a class="cite" href="#src-ko-6">[6]</a>. Tipalti 원화 송금은 T+3에 건당 최대 2만 달러, 원화 현지 이체는 T+2–T+3 <a class="cite" href="#src-ko-7">[7]</a>.</li>
+<li>거주자 1인당 연 10만 달러, 비거주자·외국인거주자는 건당 5천 달러·연 5만 달러 <sup class="ref"><a class="cite" href="#src-ko-1">[1]</a></sup>.</li>
+<li>아마존·틱톡샵 대형 셀러 매출은 연 10만 달러를 쉽게 넘김. 이 시장에는 Payoneer가 2022년 신한은행과 손잡고 먼저 들어와 있음 <sup class="ref"><a class="cite" href="#src-ko-2">[2]</a></sup>.</li>
+<li>2024년 1인 미디어 창작자 34,806명이 신고한 수입은 2.47조 원. 상위 10%(평균 3.33억 원)는 한도(₩1,400/$ 기준 약 1.4억 원 [A3])를 넘지만, 나머지 90%는 평균 약 4,200만 원이고 전체 수입의 약 53%를 가져감 <a href="국세청 구간 자료로 직접 계산">[3]</a>.</li>
+<li>수취인이 지금 내는 비용은 Patreon(Payoneer 경유) $0.25 + 1.55%, PayPal 1% <sup class="ref"><a class="cite" href="#src-ko-4">[4]</a></sup>. Upwork는 원화 출금 건당 $0.99에 환전 마진이 따로 붙고 <sup class="ref"><a class="cite" href="#src-ko-5">[5]</a></sup>, Deel은 이체는 무료지만 환전 수수료를 받음 <sup class="ref"><a class="cite" href="#src-ko-6">[6]</a></sup>. Tipalti 원화 송금은 T+3에 건당 최대 2만 달러, 원화 현지 이체는 T+2–T+3 <sup class="ref"><a class="cite" href="#src-ko-7">[7]</a></sup>.</li>
 </ul>
 <p>→ 그래서 개인에게 지급하는 플랫폼을 보았고, 플랫폼을 하나씩 접촉하기보다 그 뒤의 지급 인프라 사업자가 더 빠른 경로일 수 있다고 보았음.</p>
 <p><strong>세그먼트 평가</strong> (1–5점, 괄호 안은 가중치. 공개 자료로 직접 매긴 점수라 모인 내부 데이터에 따라 순서가 바뀔 수 있음. 대시보드에서 가중치 조정 가능)</p>
@@ -768,30 +869,30 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 </tbody>
 </table>
-<p>A(3.75)를 B(3.65)보다 위에 둔 이유는 집적 효과. 돈은 같은데, 지급 인프라 한 곳을 연동하면 그 고객 플랫폼까지 함께 확보할 수 있을 것으로 보았음. Tipalti 고객 중에는 Udemy(강사 정산)와 AppLovin(퍼블리셔 정산)이 있음 <a class="cite" href="#src-ko-8">[8]</a>. 지급을 직접 운영하는 Patreon·Upwork는 B로 두고 따로 접근함.</p>
+<p>A(3.75)를 B(3.65)보다 위에 둔 이유는 집적 효과. 돈은 같은데, 지급 인프라 한 곳을 연동하면 그 고객 플랫폼까지 함께 확보할 수 있을 것으로 보았음. Tipalti 고객 중에는 Udemy(강사 정산)와 AppLovin(퍼블리셔 정산)이 있음 <sup class="ref"><a class="cite" href="#src-ko-8">[8]</a></sup>. 지급을 직접 운영하는 Patreon·Upwork는 B로 두고 따로 접근함.</p>
 <p>G(재외동포 송금)와 E(셀러 정산)의 점수가 낮다고 해서 매력 없는 시장이라는 뜻은 아님. 이미 여러 사업자가 잘 서비스하고 있는 시장이고, 특히 재외동포 송금은 지금 모인의 핵심 사업일 가능성이 큼. 이 제안은 그 사업을 대신하자는 것이 아니라 그 위에 더해 볼 각도임.</p>
 <p><strong>공개 자료로 본 모인의 강점</strong></p>
 <ul>
-<li>상계. 2025년 1–8월 국내 개인 해외송금 3.14조 원 중 1.60조 원(약 51%)이 미국으로 나감 <a class="cite" href="#src-ko-9">[9]</a>. 모인은 제휴 대학 3,000곳 이상의 학비 송금을 처리하고 있어 당발 USD 비중이 높을 것으로 추정함 <a class="cite" href="#src-ko-10">[10]</a>. 상계가 허용된다면 들어오는 USD로 나가는 USD를 메워 환전 스프레드와 프리펀딩 부담을 함께 줄일 수 있음.</li>
-<li>국내 실시간 입금 <a class="cite" href="#src-ko-10">[10]</a>. Tipalti의 현재 한국 구간(T+2/T+3) <a class="cite" href="#src-ko-7">[7]</a>보다 하루 이상 빠름. Wise·Nium·CurrencyCloud로 미국 쪽 레일도 이미 깔려 있음 <a class="cite" href="#src-ko-10">[10]</a><a class="cite" href="#src-ko-11">[11]</a>.</li>
+<li>상계. 2025년 1–8월 국내 개인 해외송금 3.14조 원 중 1.60조 원(약 51%)이 미국으로 나감 <sup class="ref"><a class="cite" href="#src-ko-9">[9]</a></sup>. 모인은 제휴 대학 3,000곳 이상의 학비 송금을 처리하고 있어 당발 USD 비중이 높을 것으로 추정함 <sup class="ref"><a class="cite" href="#src-ko-10">[10]</a></sup>. 상계가 허용된다면 들어오는 USD로 나가는 USD를 메워 환전 스프레드와 프리펀딩 부담을 함께 줄일 수 있음.</li>
+<li>국내 실시간 입금 <sup class="ref"><a class="cite" href="#src-ko-10">[10]</a></sup>. Tipalti의 현재 한국 구간(T+2/T+3) <sup class="ref"><a class="cite" href="#src-ko-7">[7]</a></sup>보다 하루 이상 빠름. Wise·Nium·CurrencyCloud로 미국 쪽 레일도 이미 깔려 있음 <sup class="ref"><a class="cite" href="#src-ko-10">[10]</a></sup><sup class="ref"><a class="cite" href="#src-ko-11">[11]</a></sup>.</li>
 </ul>
-<p>제안하는 순서는 A 먼저, B는 직접 영업으로 병행, EU EMI를 쓰는 D는 6–12개월 차. 일본 마켓플레이스(큐텐재팬 K-뷰티 거래액 약 1,500억 엔 <a class="cite" href="#src-ko-12">[12]</a>)는 그 이후.</p>
+<p>제안하는 순서는 A 먼저, B는 직접 영업으로 병행, EU EMI를 쓰는 D는 6–12개월 차. 일본 마켓플레이스(큐텐재팬 K-뷰티 거래액 약 1,500억 엔 <sup class="ref"><a class="cite" href="#src-ko-12">[12]</a></sup>)는 그 이후.</p>
 <p><strong>먼저 검증하고 싶은 가설</strong></p>
 <ul>
 <li>H1. Tipalti 결제액 중 한국으로 나가는 비중(A1, 기준 0.4%).</li>
 <li>H2. 그중 한도 안에 드는 개인 수취인 비중(A2, 기준 50%. 창작자 자료로는 약 53%).</li>
 </ul>
 <hr />
-<h2>Q2. 타깃 기업 Tipalti: 5천 달러 미만 개인 지급 구간부터</h2>
+<h2 id="r-ko-q2">Q2. 타깃 기업 Tipalti: 5천 달러 미만 개인 지급 구간부터</h2>
 <p><strong>공개 자료상 Tipalti는 금액 구간별로 지급 파트너를 나눠 쓰는 것으로 보임. 그렇다면 기존 은행은 그대로 두고 한 구간을 제안해 볼 여지가 있음.</strong></p>
 <ul>
-<li>연환산 결제액 750억 달러(전년 대비 +30%), ARR 2억 달러 이상, 고객사 5,000곳 이상. Citi, Wells Fargo, J.P. Morgan, Visa를 파트너로 공개 <a class="cite" href="#src-ko-8">[8]</a>.</li>
-<li>한국 지급 경로는 원화 송금(T+3, 건당 100달러–2만 달러), USD 송금(T~T+1), 원화 현지 이체(T+2–T+3) <a class="cite" href="#src-ko-7">[7]</a>.</li>
-<li>지급 파트너는 지급 수단, 수취 통화, 파트너별 처리 한도에 따라 정한다고 밝힘 <a class="cite" href="#src-ko-7">[7]</a>.</li>
+<li>연환산 결제액 750억 달러(전년 대비 +30%), ARR 2억 달러 이상, 고객사 5,000곳 이상. Citi, Wells Fargo, J.P. Morgan, Visa를 파트너로 공개 <sup class="ref"><a class="cite" href="#src-ko-8">[8]</a></sup>.</li>
+<li>한국 지급 경로는 원화 송금(T+3, 건당 100달러–2만 달러), USD 송금(T~T+1), 원화 현지 이체(T+2–T+3) <sup class="ref"><a class="cite" href="#src-ko-7">[7]</a></sup>.</li>
+<li>지급 파트너는 지급 수단, 수취 통화, 파트너별 처리 한도에 따라 정한다고 밝힘 <sup class="ref"><a class="cite" href="#src-ko-7">[7]</a></sup>.</li>
 </ul>
 <p>→ 이 해석이 맞다면 코리도마다 파트너를 여럿 두는 것이 Tipalti에게는 이미 익숙한 방식이고, 첫 제안 구간으로는 5천 달러 미만 개인 지급이 자연스러움.</p>
 <p>디스커버리 미팅에서 가장 먼저 묻고 싶은 것은 Tipalti의 현재 한국 파트너와 건당 원가. 둘 다 공개돼 있지 않고, 답에 따라 이 제안 전체가 달라질 수 있음.</p>
-<p><strong>(a) 자금 흐름 추정</strong></p>
+<p id="r-ko-q2a"><strong>(a) 자금 흐름 추정</strong></p>
 <table>
 <thead>
 <tr>
@@ -808,7 +909,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td>$75B</td>
 <td>$75B</td>
 <td>$75B</td>
-<td><a class="cite" href="#src-ko-8">[8]</a></td>
+<td><sup class="ref"><a class="cite" href="#src-ko-8">[8]</a></sup></td>
 </tr>
 <tr>
 <td>한국 지급 비중 [A1]</td>
@@ -822,7 +923,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td>40%</td>
 <td>50%</td>
 <td>60%</td>
-<td>국세청 창작자 분포 ≈53% <a class="cite" href="#src-ko-3">[3]</a></td>
+<td>국세청 창작자 분포 ≈53% <sup class="ref"><a class="cite" href="#src-ko-3">[3]</a></sup></td>
 </tr>
 <tr>
 <td><strong>월간 대상 원화 물량</strong> (₩1,400/$ [A3])</td>
@@ -840,7 +941,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 </tbody>
 </table>
-<p><strong>(b) 수익 모델 (모인 기준)</strong></p>
+<p><strong>수익 모델 (모인 기준)</strong></p>
 <p>매출 = 라우팅 물량 × 환전 마진 + 지급 건수 × 건당 수수료 + 상계 USD × 절감 스프레드 − 프리펀딩 비용</p>
 <table>
 <thead>
@@ -854,9 +955,9 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <tbody>
 <tr>
 <td>Tipalti 대상 도매 환전 마진 [A5]</td>
-<td>20 bp</td>
-<td>30 bp</td>
-<td>40 bp</td>
+<td>0.20%</td>
+<td>0.30%</td>
+<td>0.40%</td>
 </tr>
 <tr>
 <td>건당 수수료 [A6]</td>
@@ -866,9 +967,9 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 <tr>
 <td>당발 상계 비중 × 절감 스프레드 [A7]</td>
-<td>30% × 5 bp</td>
-<td>50% × 8 bp</td>
-<td>70% × 10 bp</td>
+<td>30% × 0.05%</td>
+<td>50% × 0.08%</td>
+<td>70% × 0.10%</td>
 </tr>
 <tr>
 <td>프리펀딩 일수 (조달금리 4%) [A8]</td>
@@ -878,9 +979,9 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 <tr>
 <td><strong>총 수익률</strong></td>
-<td><strong>22 bp</strong></td>
-<td><strong>40 bp</strong></td>
-<td><strong>61 bp</strong></td>
+<td><strong>0.22%</strong></td>
+<td><strong>0.40%</strong></td>
+<td><strong>0.61%</strong></td>
 </tr>
 <tr>
 <td><strong>연동 후 3 / 6 / 12개월 차 점유율</strong> [A9]</td>
@@ -897,11 +998,11 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tbody>
 </table>
 <ul>
-<li>기준 40 bp는 수취인이 지금 내는 1–1.6% <a class="cite" href="#src-ko-4">[4]</a><a class="cite" href="#src-ko-5">[5]</a>보다 60–120 bp 낮음. 이 차이를 마진으로 가져갈지 수취인 가격을 내릴지는 Tipalti가 정할 문제.</li>
+<li>기준 0.40%는 수취인이 지금 내는 1–1.6% <sup class="ref"><a class="cite" href="#src-ko-4">[4]</a></sup><sup class="ref"><a class="cite" href="#src-ko-5">[5]</a></sup>보다 0.6–1.2%p 낮음. 이 차이를 마진으로 가져갈지 수취인 가격을 내릴지는 Tipalti가 정할 문제.</li>
 <li>계정 하나로는 연 ₩0.34B 수준. 같은 연동과 컴플라이언스 패키지를 Trolley, Hyperwallet, Deel, Upwork, Patreon에 다시 쓸 수 있어야 의미 있는 규모가 됨(대시보드 '유사 계정 수').</li>
-<li>숫자에 넣지 않은 것이 두 가지 있음. AppLovin이 정산하는 국내 게임사 같은 사업자 수취인은 인보이스 기반 B2B 경로로 받을 수 있는지 컴플라이언스 확인이 먼저임 <a class="cite" href="#src-ko-10">[10]</a>. Tipalti의 영국·EU 지급인 물량(EU 커버리지는 따로 운영 <a class="cite" href="#src-ko-7">[7]</a>)은 모인 EU EMI로 받을 수 있음 <a class="cite" href="#src-ko-13">[13]</a>.</li>
+<li>숫자에 넣지 않은 것이 두 가지 있음. AppLovin이 정산하는 국내 게임사 같은 사업자 수취인은 인보이스 기반 B2B 경로로 받을 수 있는지 컴플라이언스 확인이 먼저임 <sup class="ref"><a class="cite" href="#src-ko-10">[10]</a></sup>. Tipalti의 영국·EU 지급인 물량(EU 커버리지는 따로 운영 <sup class="ref"><a class="cite" href="#src-ko-7">[7]</a></sup>)은 모인 EU EMI로 받을 수 있음 <sup class="ref"><a class="cite" href="#src-ko-13">[13]</a></sup>.</li>
 </ul>
-<p><strong>Tipalti가 얻는 것과 예상 반론</strong></p>
+<p id="r-ko-q2b"><strong>(b) Tipalti가 얻는 것과 예상 반론</strong></p>
 <table>
 <thead>
 <tr>
@@ -916,19 +1017,19 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 <tr>
 <td>한국 지급 건당 원가가 내려가 환전 마크업 마진이 커짐</td>
-<td>"작은 업체라 불안" → 금융위·기재부 인가·등록, 한국은행·금감원 보고 <a class="cite" href="#src-ko-14">[14]</a>, FIU 위험평가 1위(2023) <a class="cite" href="#src-ko-15">[15]</a>, 세계은행 지수 등재 <a class="cite" href="#src-ko-10">[10]</a></td>
+<td>"작은 업체라 불안" → 금융위·기재부 인가·등록, 한국은행·금감원 보고 <sup class="ref"><a class="cite" href="#src-ko-14">[14]</a></sup>, FIU 위험평가 1위(2023) <sup class="ref"><a class="cite" href="#src-ko-15">[15]</a></sup>, 세계은행 지수 등재 <sup class="ref"><a class="cite" href="#src-ko-10">[10]</a></sup></td>
 </tr>
 <tr>
 <td>KYC, 국내 보고, 반환 처리를 국내 규제 사업자 한 곳에 맡김</td>
-<td>한도 문제 <a class="cite" href="#src-ko-1">[1]</a> → 한도 안의 수취인만 모인으로 보내고 나머지는 기존 송금 유지. 한도 규칙은 라우팅 테이블에 넣음</td>
+<td>한도 문제 <sup class="ref"><a class="cite" href="#src-ko-1">[1]</a></sup> → 한도 안의 수취인만 모인으로 보내고 나머지는 기존 송금 유지. 한도 규칙은 라우팅 테이블에 넣음</td>
 </tr>
 <tr>
-<td>나중에 모인 EU EMI(SIA MOIN Payments)로 EU까지 커버 <a class="cite" href="#src-ko-13">[13]</a></td>
-<td>연동 부담 → 표준 지급 API와 샌드박스, Nium·Wise 연동 레퍼런스 <a class="cite" href="#src-ko-11">[11]</a></td>
+<td>나중에 모인 EU EMI(SIA MOIN Payments)로 EU까지 커버 <sup class="ref"><a class="cite" href="#src-ko-13">[13]</a></sup></td>
+<td>연동 부담 → 표준 지급 API와 샌드박스, Nium·Wise 연동 레퍼런스 <sup class="ref"><a class="cite" href="#src-ko-11">[11]</a></sup></td>
 </tr>
 </tbody>
 </table>
-<p><strong>(c) 이해관계자와 일정</strong></p>
+<p id="r-ko-q2c"><strong>(c) 커뮤니케이션: 이해관계자, 논거, 접근 순서</strong></p>
 <table>
 <thead>
 <tr>
@@ -959,7 +1060,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td>첫 주에 실사 자료 일체 전달</td>
 </tr>
 <tr>
-<td>경영진: Chen Amit(CEO·공동창업자) <a class="cite" href="#src-ko-8">[8]</a></td>
+<td>경영진: Chen Amit(CEO·공동창업자) <sup class="ref"><a class="cite" href="#src-ko-8">[8]</a></sup></td>
 <td>성장, 미드마켓 안정성</td>
 <td>파일럿 결과가 나온 뒤 QBR에서만</td>
 </tr>
@@ -974,9 +1075,9 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <li>10–14주: 샌드박스 연동 후 한 구간으로 실거래 시작.</li>
 </ul>
 <hr />
-<h2>Q3. 계약 후 90일: 구간을 하나씩 늘려 점유율 확대</h2>
+<h2 id="r-ko-q3">Q3. 계약 후 90일: 구간을 하나씩 늘려 점유율 확대</h2>
 <p><strong>Tipalti가 금액 구간 기준으로 라우팅한다면 점유율도 구간 단위로 움직일 것으로 봄.</strong> 관계 관리보다 구간을 하나씩 확보하는 쪽이 숫자에 더 직접적이라는 것이 작업 가정.</p>
-<p>점유율 = Σ(Tipalti 한국 물량 중 구간 비중 × 그 구간에서 모인으로 보내는 비율) <a class="cite" href="#src-ko-7">[7]</a>.</p>
+<p>점유율 = Σ(Tipalti 한국 물량 중 구간 비중 × 그 구간에서 모인으로 보내는 비율) <sup class="ref"><a class="cite" href="#src-ko-7">[7]</a></sup>.</p>
 <table>
 <thead>
 <tr>
@@ -997,7 +1098,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 <tr>
 <td><strong>2개월 차: 확대</strong></td>
-<td>5천 달러 미만 개인 원화 지급 전체의 기본 파트너 지정 요청, 당일 마감 시각 연장, 물량 구간 가격(월 ₩10B 초과 시 −3 bp)</td>
+<td>5천 달러 미만 개인 원화 지급 전체의 기본 파트너 지정 요청, 당일 마감 시각 연장, 물량 구간 가격(월 ₩10B 초과 시 −0.03%(3 bp))</td>
 <td>기존 5천 달러 미만 지급</td>
 <td>25%</td>
 <td>원가가 기존 파트너 이하, 문의 감소</td>
@@ -1011,37 +1112,38 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </tr>
 </tbody>
 </table>
-<p>할인 검증(기준 시나리오). 점유율이 25%에서 40%로 오르면 연 매출이 약 ₩0.13B 늘고, 라우팅 물량 전체에 3 bp를 깎아 주는 비용은 연 약 ₩0.03B. 이 숫자대로라면 할인으로 다음 구간을 확보할 경우 남는 거래임(대시보드에서 바로 재계산).</p>
+<p>할인 검증(기준 시나리오). 점유율이 25%에서 40%로 오르면 연 매출이 약 ₩0.13B 늘고, 라우팅 물량 전체에 0.03%를 깎아 주는 비용은 연 약 ₩0.03B. 이 숫자대로라면 할인으로 다음 구간을 확보할 경우 남는 거래임(대시보드에서 바로 재계산).</p>
 <p>리스크도 있음. 한도·상계 규정은 바뀔 수 있음. Tipalti가 글로벌 은행 한 곳으로 물량을 몰아줄 가능성도 있는데, 이때는 특정 구간 전문 파트너로 남는 것이 대응. 원/달러 변동은 당일 환전과 USD 프리펀딩으로 줄임.</p>
 <p><strong>모인 팀에 묻고 싶은 것</strong>
 1. 타발·당발 USD 상계(§2-31⑥)를 컴플라이언스가 어디까지, 어떤 방식으로 허용하는지.
 2. 인보이스 기반 B2B 경로로 해외 플랫폼이 국내 사업자에게 보내는 돈도 받을 수 있는지.
 3. 모인이 이미 접촉 중인 미국 지급 플랫폼이 있는지, Tipalti의 현재 한국 파트너를 알고 있는지.
-5. 위 세그먼트 순위가 모인 내부 데이터(재외동포·셀러 물량 등)와 맞는지, 어디가 다른지.
-4. 타발 물량에 도매 환전 마진 30 bp를 붙일 수 있는지.</p>
-<hr /><h2 id="sources-ko">출처</h2><ul class="src"><li id="src-ko-1"><b>[1]</b> 외국환거래규정 §2-31 (2025. 12. 29. 개정): <a href="https://govbrief.kr/scan/2100000285140/2-31/" target="_blank">https://govbrief.kr/scan/2100000285140/2-31/</a></li><li id="src-ko-2"><b>[2]</b> 신한은행 × Payoneer (2022): <a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=451281" target="_blank">https://www.digitaltoday.co.kr/news/articleView.html?idxno=451281</a></li><li id="src-ko-3"><b>[3]</b> 연합뉴스, 국세청 1인 미디어 창작자 수입 2024 (2026. 2. 16.): <a href="https://www.yna.co.kr/view/AKR20260215024600002" target="_blank">https://www.yna.co.kr/view/AKR20260215024600002</a></li><li id="src-ko-4"><b>[4]</b> Patreon, 미국 외 크리에이터 지급 안내: <a href="https://support.patreon.com/hc/en-us/articles/39694936541965-Payouts-guide-for-creators-outside-of-the-US" target="_blank">https://support.patreon.com/hc/en-us/articles/39694936541965-Payouts-guide-for-creators-outside-of-the-US</a></li><li id="src-ko-5"><b>[5]</b> Upwork, Direct to Local Bank: <a href="https://support.upwork.com/hc/en-us/articles/211063888-Direct-to-Local-Bank" target="_blank">https://support.upwork.com/hc/en-us/articles/211063888-Direct-to-Local-Bank</a></li><li id="src-ko-6"><b>[6]</b> Deel, 계약자 출금 안내: <a href="https://help.letsdeel.com/hc/en-gb/articles/7338494928913-How-Contractors-Can-Withdraw-Money-From-Deel" target="_blank">https://help.letsdeel.com/hc/en-gb/articles/7338494928913-How-Contractors-Can-Withdraw-Money-From-Deel</a></li><li id="src-ko-7"><b>[7]</b> Tipalti, 지급 수단 커버리지: <a href="https://help.tipalti.com/hc/en-us/articles/31314361313815-Payment-methods-coverage-US-ROW" target="_blank">https://help.tipalti.com/hc/en-us/articles/31314361313815-Payment-methods-coverage-US-ROW</a></li><li id="src-ko-8"><b>[8]</b> Tipalti 보도자료 (2025. 9. 24.): <a href="https://tipalti.com/press/tipalti-growth-financing-ai-innovation/" target="_blank">https://tipalti.com/press/tipalti-growth-financing-ai-innovation/</a></li><li id="src-ko-9"><b>[9]</b> 이투데이, 박성훈 의원실 제출 한국은행 자료: <a href="https://www.etoday.co.kr/news/view/2515211" target="_blank">https://www.etoday.co.kr/news/view/2515211</a></li><li id="src-ko-10"><b>[10]</b> 모인 글로벌 사이트: <a href="https://global.themoin.com/?hl=en" target="_blank">https://global.themoin.com/?hl=en</a></li><li id="src-ko-11"><b>[11]</b> Nium × 모인: <a href="https://www.nium.com/newsroom/nium-moin-expands-partnershipglobal-remittance-settlement-services" target="_blank">https://www.nium.com/newsroom/nium-moin-expands-partnershipglobal-remittance-settlement-services</a> ; Wise × 모인: <a href="https://wise.com/gb/blog/moin-wise-platform-partnership" target="_blank">https://wise.com/gb/blog/moin-wise-platform-partnership</a></li><li id="src-ko-12"><b>[12]</b> 비즈워치 (큐텐재팬, 2026. 10. 5.): <a href="https://news.bizwatch.co.kr/article/consumer/2026/10/05/0002" target="_blank">https://news.bizwatch.co.kr/article/consumer/2026/10/05/0002</a></li><li id="src-ko-13"><b>[13]</b> 모인 EU EMI (2026. 7. 10.): <a href="https://en.bloomingbit.io/feed/news/116012" target="_blank">https://en.bloomingbit.io/feed/news/116012</a></li><li id="src-ko-14"><b>[14]</b> 모인 비즈플러스: <a href="https://www.moinbizplus.com/" target="_blank">https://www.moinbizplus.com/</a></li><li id="src-ko-15"><b>[15]</b> 모인 채용 공고: <a href="https://www.wanted.co.kr/wd/378445" target="_blank">https://www.wanted.co.kr/wd/378445</a></li></ul><p><b>가정.</b> A1 Tipalti 결제액 중 한국 비중. A2 한도 내 적용 가능 비중. A3 ₩1,400/$. A4 평균 지급액. A5 환전 마진. A6 건당 수수료. A7 USD 상계 비중과 절감 스프레드(상계의 규제상 취급은 확인 필요, §2-31⑥ 참조). A8 프리펀딩 일수와 조달금리. A9 점유율 상승 경로. 세그먼트 점수는 공개 자료 기준 자체 판단.</p>
+4. 타발 물량에 도매 환전 마진 0.30%를 붙일 수 있는지.
+5. 위 세그먼트 순위가 모인 내부 데이터(재외동포·셀러 물량 등)와 맞는지, 어디가 다른지.</p>
+<hr /><h2 id="sources-ko">참고문헌</h2><ol class="src"><li id="src-ko-1"><span class="rn">[1]</span> 외국환거래규정 §2-31 (2025. 12. 29. 개정): <a href="https://govbrief.kr/scan/2100000285140/2-31/" target="_blank">https://govbrief.kr/scan/2100000285140/2-31/</a></li><li id="src-ko-2"><span class="rn">[2]</span> 신한은행 × Payoneer (2022): <a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=451281" target="_blank">https://www.digitaltoday.co.kr/news/articleView.html?idxno=451281</a></li><li id="src-ko-3"><span class="rn">[3]</span> 연합뉴스, 국세청 1인 미디어 창작자 수입 2024 (2026. 2. 16.): <a href="https://www.yna.co.kr/view/AKR20260215024600002" target="_blank">https://www.yna.co.kr/view/AKR20260215024600002</a></li><li id="src-ko-4"><span class="rn">[4]</span> Patreon, 미국 외 크리에이터 지급 안내: <a href="https://support.patreon.com/hc/en-us/articles/39694936541965-Payouts-guide-for-creators-outside-of-the-US" target="_blank">https://support.patreon.com/hc/en-us/articles/39694936541965-Payouts-guide-for-creators-outside-of-the-US</a></li><li id="src-ko-5"><span class="rn">[5]</span> Upwork, Direct to Local Bank: <a href="https://support.upwork.com/hc/en-us/articles/211063888-Direct-to-Local-Bank" target="_blank">https://support.upwork.com/hc/en-us/articles/211063888-Direct-to-Local-Bank</a></li><li id="src-ko-6"><span class="rn">[6]</span> Deel, 계약자 출금 안내: <a href="https://help.letsdeel.com/hc/en-gb/articles/7338494928913-How-Contractors-Can-Withdraw-Money-From-Deel" target="_blank">https://help.letsdeel.com/hc/en-gb/articles/7338494928913-How-Contractors-Can-Withdraw-Money-From-Deel</a></li><li id="src-ko-7"><span class="rn">[7]</span> Tipalti, 지급 수단 커버리지: <a href="https://help.tipalti.com/hc/en-us/articles/31314361313815-Payment-methods-coverage-US-ROW" target="_blank">https://help.tipalti.com/hc/en-us/articles/31314361313815-Payment-methods-coverage-US-ROW</a></li><li id="src-ko-8"><span class="rn">[8]</span> Tipalti 보도자료 (2025. 9. 24.): <a href="https://tipalti.com/press/tipalti-growth-financing-ai-innovation/" target="_blank">https://tipalti.com/press/tipalti-growth-financing-ai-innovation/</a></li><li id="src-ko-9"><span class="rn">[9]</span> 이투데이, 박성훈 의원실 제출 한국은행 자료: <a href="https://www.etoday.co.kr/news/view/2515211" target="_blank">https://www.etoday.co.kr/news/view/2515211</a></li><li id="src-ko-10"><span class="rn">[10]</span> 모인 글로벌 사이트: <a href="https://global.themoin.com/?hl=en" target="_blank">https://global.themoin.com/?hl=en</a></li><li id="src-ko-11"><span class="rn">[11]</span> Nium × 모인: <a href="https://www.nium.com/newsroom/nium-moin-expands-partnershipglobal-remittance-settlement-services" target="_blank">https://www.nium.com/newsroom/nium-moin-expands-partnershipglobal-remittance-settlement-services</a> ; Wise × 모인: <a href="https://wise.com/gb/blog/moin-wise-platform-partnership" target="_blank">https://wise.com/gb/blog/moin-wise-platform-partnership</a></li><li id="src-ko-12"><span class="rn">[12]</span> 비즈워치 (큐텐재팬, 2026. 10. 5.): <a href="https://news.bizwatch.co.kr/article/consumer/2026/10/05/0002" target="_blank">https://news.bizwatch.co.kr/article/consumer/2026/10/05/0002</a></li><li id="src-ko-13"><span class="rn">[13]</span> 모인 EU EMI (2026. 7. 10.): <a href="https://en.bloomingbit.io/feed/news/116012" target="_blank">https://en.bloomingbit.io/feed/news/116012</a></li><li id="src-ko-14"><span class="rn">[14]</span> 모인 비즈플러스: <a href="https://www.moinbizplus.com/" target="_blank">https://www.moinbizplus.com/</a></li><li id="src-ko-15"><span class="rn">[15]</span> 모인 채용 공고: <a href="https://www.wanted.co.kr/wd/378445" target="_blank">https://www.wanted.co.kr/wd/378445</a></li></ol><p><b>가정.</b> A1 Tipalti 결제액 중 한국 비중. A2 한도 내 적용 가능 비중. A3 ₩1,400/$. A4 평균 지급액. A5 환전 마진. A6 건당 수수료. A7 USD 상계 비중과 절감 스프레드(상계의 규제상 취급은 확인 필요, §2-31⑥ 참조). A8 프리펀딩 일수와 조달금리. A9 점유율 상승 경로. 세그먼트 점수는 공개 자료 기준 자체 판단.</p>
  </div>
 </div></section>
 
 <script>
 const $=id=>document.getElementById(id);
 const D=document.documentElement;
+const pct=v=>(Math.round(v)/100).toFixed(2)+'%';
 const fB=v=>'₩'+(v/1e9).toFixed(2)+'B', fM=v=>'₩'+(v/1e6).toFixed(1)+'M';
 let LANG=D.lang==='ko'?'ko':'en';
 const L=(en,ko)=>LANG==='ko'?ko:en;
 const J=(w,a,b)=>{const c=w.trim().slice(-1),k=c.charCodeAt(0);let f;if(k>=0xAC00&&k<=0xD7A3)f=(k-0xAC00)%28>0;else if(/[0-9]/.test(c))f='013678'.includes(c);else f=/[lmnrLMNR]/.test(c);return w+(f?a:b);};
 const I18N={
-en:{sub:'Task 2 · an outside view on US inbound payout · HSO',t1:'Overview',t1d:'The hypothesis and Q1–Q3',t2:'Model',t2d:'Adjust assumptions; KPIs and analysis update live',t3:'Full report',t3d:'The full 3-page answer with sources',
+en:{sub:'Task 2 · an outside view on US inbound payout · HSO',t0:'Assignment',t0d:'MOIN\'s brief; click a question',t1:'Overview',t1d:'The hypothesis and Q1–Q3',t2:'Model',t2d:'Change assumptions; results update live',t3:'Full report',t3d:'The full 3-page answer with references',
  day:'Day mode',night:'Night mode',fsdn:'Smaller text',fsup:'Larger text',levers:'Levers',low:'Low',base:'Base',high:'High',
  g_vol:'Volume (Tipalti)',g_price:'Pricing',g_net:'USD netting & prefunding',g_share:'Share of wallet after go-live [A9]',g_w:'Segment weights (Q1)',reset:'reset',
- l_tv:'Annual payment volume',h_tv:'Tipalti, Sep 2025: $75B',l_ks:'Share paid to Korea [A1]',h_ks:'Proxy; test in discovery',l_el:'Cap-eligible share [A2]',h_el:'NTS proxy ≈53%',l_avg:'Average payout [A4]',h_avg:'Sets payout count',l_acc:'Similar accounts won',h_acc:'Trolley, Hyperwallet, Deel, Upwork…',
+ l_tv:'Annual payment volume',h_tv:'Tipalti, Sep 2025: $75B [8]',l_ks:'Share paid to Korea [A1]',h_ks:'Proxy; test in discovery',l_el:'Cap-eligible share [A2]',h_el:'NTS proxy ≈53% [3]',l_avg:'Average payout [A4]',h_avg:'Sets payout count',l_acc:'Similar accounts won',h_acc:'Trolley, Hyperwallet, Deel, Upwork…',
  l_fx:'FX margin to Tipalti [A5]',l_fee:'Fee per payout [A6]',l_disc:'Tier discount tested (Q3)',h_disc:'Checked in analysis; not in KPIs',l_ns:'USD netted vs outbound [A7]',l_nb:'Spread saved on netted USD',l_pd:'Prefund days [A8]',l_cof:'Cost of funds (annual)',m3:'Month 3',m6:'Month 6',m12:'Month 12',
  k_pool:'Eligible KRW pool / month',k_3:'Net revenue · month 3',k_12:'Net revenue · month 12',k_ar:'Run-rate @ M12 · Tipalti',k_port:'Run-rate @ M12 · portfolio',
  c_ramp:'Revenue ramp (₩M / month) & routed volume (₩B)',c_tor:'Sensitivity · annual run-rate, ±25%',c_seg:'Segment ranking (live weights)',ana:'Live analysis · updates as you move the levers'},
-ko:{sub:'과제 2 · 미국발 타발송금에 대한 외부 시각 · HSO',t1:'개요',t1d:'가설과 Q1–Q3 요약',t2:'모델',t2d:'가정을 바꾸면 KPI와 분석이 바로 바뀜',t3:'전체 보고서',t3d:'3쪽 답안 전문과 출처',
+ko:{sub:'과제 2 · 미국발 타발송금에 대한 외부 시각 · HSO',t0:'과제',t0d:'모인 과제 원문, 문항을 누르면 답변으로 이동',t1:'개요',t1d:'가설과 Q1–Q3 요약',t2:'모델',t2d:'가정을 바꾸면 KPI와 분석이 바로 바뀜',t3:'전체 보고서',t3d:'3쪽 답안 전문과 참고문헌',
  day:'주간 모드',night:'야간 모드',fsdn:'글자 작게',fsup:'글자 크게',levers:'변수',low:'저',base:'기준',high:'고',
  g_vol:'물량 (Tipalti)',g_price:'가격',g_net:'USD 상계·프리펀딩',g_share:'연동 후 점유율 [A9]',g_w:'세그먼트 가중치 (Q1)',reset:'초기화',
- l_tv:'연간 결제액',h_tv:'Tipalti, 2025년 9월: $75B',l_ks:'한국 지급 비중 [A1]',h_ks:'대리 지표, 디스커버리에서 확인',l_el:'한도 내 개인 수취인 비중 [A2]',h_el:'국세청 대리값 ≈53%',l_avg:'평균 지급액 [A4]',h_avg:'지급 건수 산출 기준',l_acc:'유사 계정 확보 수',h_acc:'Trolley, Hyperwallet, Deel, Upwork 등',
+ l_tv:'연간 결제액',h_tv:'Tipalti, 2025년 9월: $75B [8]',l_ks:'한국 지급 비중 [A1]',h_ks:'대리 지표, 디스커버리에서 확인',l_el:'한도 내 개인 수취인 비중 [A2]',h_el:'국세청 대리값 ≈53% [3]',l_avg:'평균 지급액 [A4]',h_avg:'지급 건수 산출 기준',l_acc:'유사 계정 확보 수',h_acc:'Trolley, Hyperwallet, Deel, Upwork 등',
  l_fx:'도매 환전 마진 [A5]',l_fee:'건당 수수료 [A6]',l_disc:'검증할 구간 할인 (Q3)',h_disc:'분석에서만 검증, KPI 미반영',l_ns:'당발 상계 비중 [A7]',l_nb:'상계분 절감 스프레드',l_pd:'프리펀딩 일수 [A8]',l_cof:'조달금리 (연)',m3:'3개월 차',m6:'6개월 차',m12:'12개월 차',
  k_pool:'월간 대상 원화 물량',k_3:'순매출 · 3개월 차',k_12:'순매출 · 12개월 차',k_ar:'12개월 차 연환산 · Tipalti',k_port:'12개월 차 연환산 · 포트폴리오',
  c_ramp:'매출 추이(₩M/월)·라우팅 물량(₩B)',c_tor:'민감도 · 연환산 매출 ±25%',c_seg:'세그먼트 순위(실시간 가중치)',ana:'실시간 분석 · 변수를 바꾸면 다시 계산'}};
@@ -1060,7 +1162,7 @@ const SH={en:{A:'A · Payout infra',B:'B · Creator/gig',C:'C · Payroll/EOR',D:
  ko:{A:'A · 지급 인프라',B:'B · 크리에이터/긱',C:'C · 급여/EOR',D:'D · EU(EMI)',E:'E · 마켓 셀러',F:'F · 도매 네트워크',G:'G · 동포 송금',H:'H · 스테이블코인'}};
 const DRV={ks:['Korea share','한국 비중'],el:['Eligible share','한도 내 비중'],s12:['M12 share','12개월 차 점유율'],fx:['FX margin','환전 마진'],fee:['Per-payout fee','건당 수수료'],avg:['Avg payout','평균 지급액'],ns:['Netting share','상계 비중'],nb:['Netting saving','상계 절감 스프레드'],pd:['Prefund days','프리펀딩 일수']};
 $('wctrls').innerHTML=W0.map((w,i)=>`<div class="c"><label><span id="wl${i}"></span><b id="wo${i}"></b></label><input type="range" id="wt${i}" min="0" max="50" step="1" value="${w}"></div>`).join('');
-const LAB={tv:v=>'$'+v+'B',ks:v=>v.toFixed(2)+'%',el:v=>v+'%',fxr:v=>'₩'+v.toLocaleString(),avg:v=>'$'+v.toLocaleString(),acc:v=>'×'+v,fx:v=>v+' bp',fee:v=>'₩'+v.toLocaleString(),disc:v=>v+' bp',ns:v=>v+'%',nb:v=>v+' bp',pd:v=>v+L(' d','일'),cof:v=>v+'%',s3:v=>v+'%',s6:v=>v+'%',s12:v=>v+'%'};
+const LAB={tv:v=>'$'+v+'B',ks:v=>v.toFixed(2)+'%',el:v=>v+'%',fxr:v=>'₩'+v.toLocaleString(),avg:v=>'$'+v.toLocaleString(),acc:v=>'×'+v,fx:v=>pct(v),fee:v=>'₩'+v.toLocaleString(),disc:v=>pct(v),ns:v=>v+'%',nb:v=>pct(v),pd:v=>v+L(' d','일'),cof:v=>v+'%',s3:v=>v+'%',s6:v=>v+'%',s12:v=>v+'%'};
 function P(){const o={};IDS.forEach(k=>o[k]=parseFloat($(k).value));return o;}
 const pool=p=>p.tv*1e9*p.ks/100*p.el/100*p.fxr/12;
 function rev(p,share,disc=0){const v=pool(p)*share/100,cnt=v/p.fxr/p.avg;
@@ -1095,7 +1197,7 @@ function upd(){
  $('kpool').textContent=fB(pl);$('kpools').textContent=L('≈'+n0(pl/p.fxr/p.avg)+' payouts at 100%','100% 기준 약 '+n0(pl/p.fxr/p.avg)+'건');
  $('k3').textContent=fM(r3.t);$('k3s').textContent=L(p.s3+'% share · '+fB(r3.v)+' routed','점유율 '+p.s3+'% · 라우팅 '+fB(r3.v));
  $('k12').textContent=fM(r12.t);$('k12s').textContent=L(p.s12+'% share · '+fB(r12.v)+' routed','점유율 '+p.s12+'% · 라우팅 '+fB(r12.v));
- $('kar').textContent=fB(ar);$('kars').textContent=L(r12.y.toFixed(1)+' bp all-in · '+n0(r12.cnt)+' payouts/mo','총 수익률 '+r12.y.toFixed(1)+' bp · 월 '+n0(r12.cnt)+'건');
+ $('kar').textContent=fB(ar);$('kars').textContent=L(pct(r12.y)+' all-in · '+n0(r12.cnt)+' payouts/mo','총 수익률 '+pct(r12.y)+' · 월 '+n0(r12.cnt)+'건');
  $('kport').textContent=fB(ar*p.acc);$('kports').textContent=L('×'+p.acc+' similar account(s) [assumption]','유사 계정 ×'+p.acc+' [가정]');
  const segs=segScores();
  const tor=Object.keys(DRV).map(k=>{const lo={...p},hi={...p};lo[k]*=.75;hi[k]*=1.25;return[k,DRV[k][LANG==='ko'?1:0],rev(lo,lo.s12).t*12-ar,rev(hi,hi.s12).t*12-ar];}).sort((a,b)=>Math.abs(b[3]-b[2])-Math.abs(a[3]-a[2]));
@@ -1110,19 +1212,19 @@ function upd(){
  /* analysis (EN/KO) */
  const A=[];const B=SC.base,base=rev(B,B.s12).t*12;
  const dPct=`<span class="${ar>=base?'pos':'neg'}">${ar>=base?'+':''}${((ar/base-1)*100).toFixed(0)}%</span>`;
- A.push(L(`<b>Where this lands.</b> Tipalti alone brings in ${fB(ar)} a year by month 12: ${p.s12}% of a ${fB(pl)}/month pool at ${r12.y.toFixed(0)} bp, about ${n0(r12.cnt)} payouts a month. That is ${dPct} against the report's ₩0.34B${p.acc>1?`, and ${fB(ar*p.acc)} if ${p.acc} similar accounts follow`:''}.`,
-  `<b>현재 설정 결과.</b> Tipalti 한 곳의 12개월 차 연환산 매출은 ${fB(ar)}. 월 ${fB(pl)} 물량에서 ${p.s12}%를 가져오고 총 수익률 ${r12.y.toFixed(0)} bp, 월 ${n0(r12.cnt)}건 정도를 처리하는 그림. 보고서 기준값 ₩0.34B 대비 ${dPct}${p.acc>1?`이고, 유사 계정 ${p.acc}곳이 붙으면 연 ${fB(ar*p.acc)}`:''}.`));
+ A.push(L(`<b>Where this lands.</b> Tipalti alone brings in ${fB(ar)} a year by month 12: ${p.s12}% of a ${fB(pl)}/month pool at ${pct(r12.y)}, about ${n0(r12.cnt)} payouts a month. That is ${dPct} against the report's ₩0.34B${p.acc>1?`, and ${fB(ar*p.acc)} if ${p.acc} similar accounts follow`:''}.`,
+  `<b>현재 설정 결과.</b> Tipalti 한 곳의 12개월 차 연환산 매출은 ${fB(ar)}. 월 ${fB(pl)} 물량에서 ${p.s12}%를 가져오고 총 수익률 ${pct(r12.y)}, 월 ${n0(r12.cnt)}건 정도를 처리하는 그림. 보고서 기준값 ₩0.34B 대비 ${dPct}${p.acc>1?`이고, 유사 계정 ${p.acc}곳이 붙으면 연 ${fB(ar*p.acc)}`:''}.`));
  const tot=r12.fx+r12.fees+r12.net||1, pc=x=>Math.round(x/tot*100);
  const volTop=['ks','el','s12'].includes(tor[0][0]);
  const sw=fB(Math.max(Math.abs(tor[0][2]),Math.abs(tor[0][3])));
  A.push(L(`<b>What moves it.</b> ${tor[0][1]} swings the result by up to ${sw}, followed by ${tor[1][1]}. FX margin is ${pc(r12.fx)}% of revenue, fees ${pc(r12.fees)}%, netting ${pc(r12.net)}%. ${volTop?'Volume assumptions matter more than price here, so sizing Tipalti\'s Korea book is the first thing I would check.':'Price matters most at these settings, so margin would be the point to protect in negotiation.'}`,
   `<b>결과를 움직이는 변수.</b> ${J(tor[0][1],'을','를')} 25% 바꾸면 결과가 최대 ${sw} 흔들리고, 그다음이 ${tor[1][1]}. 매출은 환전 마진 ${pc(r12.fx)}%, 건당 수수료 ${pc(r12.fees)}%, 상계 ${pc(r12.net)}%로 구성됨. ${volTop?'가격보다 물량 가정이 결과를 좌우하므로, Tipalti 한국 물량을 가장 먼저 확인하고 싶음.':'이 설정에서는 가격 영향이 커서 협상 때 마진을 지키는 쪽이 중요해 보임.'}`));
  const moin=p.fx+(p.fee/p.fxr/p.avg)*1e4, payo=155+0.25/p.avg*1e4, upw=0.99/p.avg*1e4, hr=(payo-moin).toFixed(0);
- A.push(L(`<b>Against today's prices.</b> On a $${p.avg} payout MOIN charges ${moin.toFixed(0)} bp wholesale. The payee pays about ${payo.toFixed(0)} bp through Patreon and Payoneer, 100 bp through PayPal, or ${upw.toFixed(0)} bp plus FX on Upwork. ${moin<payo*0.5?`<span class="pos">That leaves ≈${hr} bp</span> for Tipalti to keep or pass on.`:moin<payo?`<span class="warn">Only ${hr} bp is left</span>, which would make the switch harder to argue.`:`<span class="neg">MOIN ends up above what payees pay now</span>; the fee or margin has to come down.`}`,
-  `<b>현행 가격과 비교.</b> 지급액 $${p.avg} 기준 모인 도매가는 ${moin.toFixed(0)} bp. 수취인은 지금 Patreon→Payoneer로 약 ${payo.toFixed(0)} bp, PayPal로 100 bp, Upwork로 ${upw.toFixed(0)} bp에 환전 마진까지 냄. ${moin<payo*0.5?`<span class="pos">약 ${hr} bp가 남아</span> Tipalti가 마진으로 챙기든 수취인 가격을 내리든 여유가 있음.`:moin<payo?`<span class="warn">남는 폭이 ${hr} bp뿐이라</span> 기존 레일을 바꾸자고 설득하기는 쉽지 않아 보임.`:`<span class="neg">수취인이 지금 내는 가격보다 비쌈.</span> 수수료나 마진을 낮춰야 함.`}`));
+ A.push(L(`<b>Against today's prices.</b> On a $${p.avg} payout MOIN charges ${pct(moin)} wholesale. The payee pays about ${pct(payo)} through Patreon and Payoneer, 1.00% through PayPal, or ${pct(upw)} plus FX on Upwork. ${moin<payo*0.5?`<span class="pos">That leaves ≈${pct(hr)}</span> for Tipalti to keep or pass on.`:moin<payo?`<span class="warn">Only ${pct(hr)} is left</span>, which would make the switch harder to argue.`:`<span class="neg">MOIN ends up above what payees pay now</span>; the fee or margin has to come down.`}`,
+  `<b>현행 가격과 비교.</b> 지급액 $${p.avg} 기준 모인 도매가는 ${pct(moin)}. 수취인은 지금 Patreon→Payoneer로 약 ${pct(payo)}, PayPal로 1.00%, Upwork로 ${pct(upw)}에 환전 마진까지 냄. ${moin<payo*0.5?`<span class="pos">약 ${pct(hr)}가 남아</span> Tipalti가 마진으로 챙기든 수취인 가격을 내리든 여유가 있음.`:moin<payo?`<span class="warn">남는 폭이 ${pct(hr)}뿐이라</span> 기존 레일을 바꾸자고 설득하기는 쉽지 않아 보임.`:`<span class="neg">수취인이 지금 내는 가격보다 비쌈.</span> 수수료나 마진을 낮춰야 함.`}`));
  const gain=(rev(p,p.s12).t-rev(p,p.s3).t)*12, cost=(rev(p,p.s12).t-rev(p,p.s12,p.disc).t)*12;
- A.push(L(`<b>The ${p.disc} bp discount.</b> Moving from ${p.s3}% at month 3 to ${p.s12}% at month 12 is worth ${fB(gain)} a year; the discount on all routed volume costs ${fB(cost)}. ${gain>cost?`<span class="pos">Net ${fB(gain-cost)} in MOIN's favour</span>, as long as the discount actually wins the next band.`:`<span class="neg">Net ${fB(gain-cost)}</span>, so offer SLA or speed instead of price.`}`,
-  `<b>${p.disc} bp 할인.</b> 점유율이 3개월 차 ${p.s3}%에서 12개월 차 ${p.s12}%로 오르면 연 ${fB(gain)}가 늘고, 전체 물량에 할인을 적용하는 비용은 연 ${fB(cost)}. ${gain>cost?`<span class="pos">순 ${fB(gain-cost)} 이득.</span> 할인을 주고 다음 구간을 실제로 받아 온다는 전제.`:`<span class="neg">순 ${fB(gain-cost)}로 손해.</span> 가격 대신 SLA나 입금 속도로 협상할 것.`}`));
+ A.push(L(`<b>The ${pct(p.disc)} discount.</b> Moving from ${p.s3}% at month 3 to ${p.s12}% at month 12 is worth ${fB(gain)} a year; the discount on all routed volume costs ${fB(cost)}. ${gain>cost?`<span class="pos">Net ${fB(gain-cost)} in MOIN's favour</span>, as long as the discount actually wins the next band.`:`<span class="neg">Net ${fB(gain-cost)}</span>, so offer SLA or speed instead of price.`}`,
+  `<b>${pct(p.disc)} 할인.</b> 점유율이 3개월 차 ${p.s3}%에서 12개월 차 ${p.s12}%로 오르면 연 ${fB(gain)}가 늘고, 전체 물량에 할인을 적용하는 비용은 연 ${fB(cost)}. ${gain>cost?`<span class="pos">순 ${fB(gain-cost)} 이득.</span> 할인을 주고 다음 구간을 실제로 받아 온다는 전제.`:`<span class="neg">순 ${fB(gain-cost)}로 손해.</span> 가격 대신 SLA나 입금 속도로 협상할 것.`}`));
  A.push(L(`<b>Cap fit.</b> The model assumes ${p.el}% of Korea volume is under the cap; creator data puts it near 53%. ${p.el>60?'<span class="warn">That is above what public data shows, so it would need Tipalti payee data behind it.</span>':p.el<40?'That is cautious, and business payees on the invoice route would come on top.':'That is close to what public data shows.'} Non-residents are capped at US$5k per transaction.`,
   `<b>한도 적합성.</b> 한국 물량 중 ${p.el}%가 한도 안이라고 가정함. 창작자 자료로는 53% 안팎. ${p.el>60?'<span class="warn">공개 자료보다 높게 잡은 값이라 Tipalti 수취인 데이터로 확인이 필요함.</span>':p.el<40?'보수적인 가정이고, 인보이스 경로로 사업자 수취인을 받으면 그만큼 더해짐.':'공개 자료와 크게 다르지 않은 수준.'} 비거주자는 건당 5천 달러 제한이 걸림.`));
  A.push(L(`<b>Netting.</b> Offsetting inbound against outbound USD adds ${fM(r12.net*12)} a year (${pc(r12.net)}% of gross), while ${p.pd} day(s) of prefunding cost ${fM(r12.pre*12)}. ${p.ns>0?'Whether 상계 is allowed under §2-31⑥ is a question for MOIN\'s compliance team.':'Without netting, the pitch rests on price and speed.'}`,
@@ -1159,12 +1261,16 @@ function show(t){document.querySelectorAll('section').forEach(s=>s.classList.tog
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>show(b.dataset.t));
 
 /* boot: URL params (#model?lang=ko&theme=dark&scale=1.2) override and persist */
-const [hTab,hQ]=(location.hash||'#overview').slice(1).split('?');const Q=new URLSearchParams(hQ||'');
+const [hTab,hQ]=(location.hash||'#assignment').slice(1).split('?');const Q=new URLSearchParams(hQ||'');
 setPreset('base');
 applyLang(Q.get('lang')||D.lang,Q.has('lang'));
 applyTheme(Q.get('theme')||D.dataset.theme,Q.has('theme'));
 applyScale(parseFloat(Q.get('scale')||cv('--scale'))||1,Q.has('scale'));
-show(['overview','model','report'].includes(hTab)?hTab:'overview');
+show(['assignment','overview','model','report'].includes(hTab)?hTab:'assignment');
+/* jump to a report anchor: switch tab, smooth scroll, brief highlight */
+function jump(id){show('report');const el=$(id);if(!el)return;requestAnimationFrame(()=>{el.scrollIntoView({behavior:'smooth',block:'start'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),2600);});}
+document.querySelectorAll('.qlink').forEach(a=>a.onclick=e=>{e.preventDefault();jump('r-'+LANG+'-'+a.dataset.q);});
+document.addEventListener('click',e=>{const a=e.target.closest('a.cite');if(!a)return;e.preventDefault();jump(a.getAttribute('href').slice(1));});
 </script>
 </body>
 </html>
