@@ -99,6 +99,19 @@ html[lang=ko] h3{text-transform:none;letter-spacing:0;font-size:.95rem}
 @keyframes flash{0%{background:rgba(255,196,0,.55)}100%{background:transparent}}
 .flash{animation:flash 2.4s ease-out;border-radius:.3rem}
 sup.ref{line-height:0;font-size:.72em}sup.ref a{text-decoration:none}
+/* assumption icons + tooltip */
+.ai{display:inline-grid;place-items:center;width:1.05em;height:1.05em;min-width:15px;min-height:15px;border-radius:50%;border:1.5px solid var(--blue);background:transparent;color:var(--blue);font:italic 700 .72em/1 Georgia,'Times New Roman',serif;padding:0;margin:0 .1em;vertical-align:.12em;cursor:help;flex:none}
+.ai:hover,.ai:focus-visible,.ai[aria-expanded=true]{background:var(--blue);color:#fff;outline:none}
+.ai:focus-visible{box-shadow:0 0 0 3px rgba(31,94,255,.35)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.c label .ai{font-size:.78rem}
+#tip{position:fixed;z-index:1000;max-width:min(22rem,calc(100vw - 16px));background:#0f1d3d;color:#eef3ff;border:1px solid #2a3d6b;border-radius:.6rem;padding:.65rem .85rem;font-size:.85rem;line-height:1.5;box-shadow:0 10px 28px rgba(0,0,0,.28);pointer-events:none;text-transform:none;letter-spacing:0;font-weight:400}
+#tip .tt{font-weight:800;margin-bottom:.2rem;color:#fff}#tip .tb{color:#ffd56a;font-weight:600;margin-bottom:.2rem}
+#tip::after{content:'';position:absolute;left:var(--ax,50%);transform:translateX(-50%);border:7px solid transparent}
+#tip[data-pos=above]::after{top:100%;border-top-color:#0f1d3d}#tip[data-pos=below]::after{bottom:100%;border-bottom-color:#0f1d3d}
+html[data-theme=dark] #tip{background:#f4f7ff;color:#14213d;border-color:#c9d6f5;box-shadow:0 10px 28px rgba(0,0,0,.55)}
+html[data-theme=dark] #tip .tt{color:#0b1f4d}html[data-theme=dark] #tip .tb{color:#8a5a00}
+html[data-theme=dark] #tip[data-pos=above]::after{border-top-color:#f4f7ff}html[data-theme=dark] #tip[data-pos=below]::after{border-bottom-color:#f4f7ff}
 /* live report */
 .scen{position:sticky;top:calc(var(--tabh,5rem) + .5rem);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--sky);border:1px solid var(--line);border-radius:.6rem;padding:.6rem 1rem;margin:-1rem 0 1.5rem;font-size:.92rem;line-height:1.5}
 .scen.on{background:#fff6d6;border-color:#e8c45a;color:#3d3000}
@@ -341,7 +354,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
    <div class="c"><label><span data-i18n="l_tv"></span><b id="o_tv"></b></label><input type="range" id="tv" min="20" max="150" step="1"><small data-i18n="h_tv"></small></div>
    <div class="c"><label><span data-i18n="l_ks"></span><b id="o_ks"></b></label><input type="range" id="ks" min="0.05" max="1.5" step="0.05"><small data-i18n="h_ks"></small></div>
    <div class="c"><label><span data-i18n="l_el"></span><b id="o_el"></b></label><input type="range" id="el" min="10" max="90" step="1"><small data-i18n="h_el"></small></div>
-   <div class="c"><label><span>USD/KRW [A3]</span><b id="o_fxr"></b></label><input type="range" id="fxr" min="1100" max="1600" step="10"></div>
+   <div class="c"><label><span>USD/KRW <button type="button" class="ai" data-a="A3" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A3</span></button></span><b id="o_fxr"></b></label><input type="range" id="fxr" min="1100" max="1600" step="10"></div>
    <div class="c"><label><span data-i18n="l_avg"></span><b id="o_avg"></b></label><input type="range" id="avg" min="100" max="3000" step="50"><small data-i18n="h_avg"></small></div>
    <div class="c"><label><span data-i18n="l_acc"></span><b id="o_acc"></b></label><input type="range" id="acc" min="1" max="8" step="1"><small data-i18n="h_acc"></small></div>
   </div>
@@ -389,7 +402,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
  <div class="report" data-lang="en">
 <div class="scen"><span class="scen-t"></span><button class="scen-r" hidden></button></div>
 <h1>Inbound KRW Payout from the US: A Hypothesis to Test with Tipalti</h1>
-<p><strong>Task 2 (타발송금) · HSO · [A#] = assumption to validate; all other figures are cited.</strong></p>
+<p><strong>Task 2 (타발송금) · HSO · <button type="button" class="ai" data-a="HDR" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">HDR</span></button> marks an assumption to validate (hover or tap for details); all other figures are cited.</strong></p>
 <blockquote>
 <p><strong>Hypothesis: US payout infrastructure that pays Korean individuals is an additional segment worth testing, and Tipalti is the account I would test it on first.</strong></p>
 <ul>
@@ -406,7 +419,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <ul>
 <li>The cap is US$100k per resident per year. Non-residents and foreign residents get US$5k per transaction and US$50k per year <sup class="ref"><a class="cite" href="#src-en-1">[1]</a></sup>.</li>
 <li>Large Amazon or TikTok Shop sellers clear US$100k easily, and Payoneer has served them with Shinhan Bank since 2022 <sup class="ref"><a class="cite" href="#src-en-2">[2]</a></sup>.</li>
-<li>In 2024, 34,806 Korean creators declared ₩2.47T. The top 10% averaged ₩333M, well above the cap (≈<span class="b" data-b="capw">₩140M</span> at <span class="b" data-b="fxr">₩1,400</span>/$ [A3]). The other 90% averaged ≈₩42M and took ~53% of the total <sup class="ref"><a class="cite" href="#src-en-3">[3]</a></sup> (my calculation from NTS bands).</li>
+<li>In 2024, 34,806 Korean creators declared ₩2.47T. The top 10% averaged ₩333M, well above the cap (≈<span class="b" data-b="capw">₩140M</span> at <span class="b" data-b="fxr">₩1,400</span>/$ <button type="button" class="ai" data-a="A3" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A3</span></button>). The other 90% averaged ≈₩42M and took ~53% of the total <sup class="ref"><a class="cite" href="#src-en-3">[3]</a></sup> (my calculation from NTS bands).</li>
 <li>Payees pay $0.25 + 1.55% on Patreon via Payoneer, or 1% via PayPal <sup class="ref"><a class="cite" href="#src-en-4">[4]</a></sup>. Upwork charges $0.99 per KRW withdrawal plus FX <sup class="ref"><a class="cite" href="#src-en-5">[5]</a></sup>; Deel's transfer is free but it adds FX fees <sup class="ref"><a class="cite" href="#src-en-6">[6]</a></sup>. Tipalti's KRW wire takes T+3 with a US$20k cap, and its KRW local transfer T+2–T+3 <sup class="ref"><a class="cite" href="#src-en-7">[7]</a></sup>.</li>
 </ul>
 <p>On that basis I looked at platforms that pay individuals, and at the payout providers behind them as a possibly faster route in.</p>
@@ -552,7 +565,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td><sup class="ref"><a class="cite" href="#src-en-8">[8]</a></sup></td>
 </tr>
 <tr>
-<td>Share paid to Korea [A1]</td>
+<td>Share paid to Korea <button type="button" class="ai" data-a="A1" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A1</span></button></td>
 <td>0.2%</td>
 <td>0.4%</td>
 <td>0.6%</td>
@@ -560,7 +573,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td>Proxy; test in discovery</td>
 </tr>
 <tr>
-<td>Cap-eligible share (individual payees) [A2]</td>
+<td>Cap-eligible share (individual payees) <button type="button" class="ai" data-a="A2" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A2</span></button></td>
 <td>40%</td>
 <td>50%</td>
 <td>60%</td>
@@ -568,7 +581,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td>NTS creator distribution ≈53% <sup class="ref"><a class="cite" href="#src-en-3">[3]</a></sup></td>
 </tr>
 <tr>
-<td><strong>Eligible KRW pool / month</strong> (<span class="b" data-b="fxr">₩1,400</span>/$ [A3])</td>
+<td><strong>Eligible KRW pool / month</strong> (<span class="b" data-b="fxr">₩1,400</span>/$ <button type="button" class="ai" data-a="A3" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A3</span></button>)</td>
 <td><strong>₩7.0B</strong></td>
 <td><strong>₩17.5B</strong></td>
 <td><strong>₩31.5B</strong></td>
@@ -576,7 +589,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td></td>
 </tr>
 <tr>
-<td>Average payout [A4]</td>
+<td>Average payout <button type="button" class="ai" data-a="A4" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A4</span></button></td>
 <td>$800</td>
 <td>$500</td>
 <td>$400</td>
@@ -599,28 +612,28 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </thead>
 <tbody>
 <tr>
-<td>Wholesale FX margin to Tipalti [A5]</td>
+<td>Wholesale FX margin to Tipalti <button type="button" class="ai" data-a="A5" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A5</span></button></td>
 <td>0.20%</td>
 <td>0.30%</td>
 <td>0.40%</td>
 <td><span class="b" data-b="c_fx">0.30%</span></td>
 </tr>
 <tr>
-<td>Fee per payout [A6]</td>
+<td>Fee per payout <button type="button" class="ai" data-a="A6" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A6</span></button></td>
 <td>₩300</td>
 <td>₩500</td>
 <td>₩800</td>
 <td><span class="b" data-b="c_fee">₩500</span></td>
 </tr>
 <tr>
-<td>USD netted vs MOIN outbound × spread saved [A7]</td>
+<td>USD netted vs MOIN outbound × spread saved <button type="button" class="ai" data-a="A7" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A7</span></button></td>
 <td>30% × 0.05%</td>
 <td>50% × 0.08%</td>
 <td>70% × 0.10%</td>
 <td><span class="b" data-b="c_net">50% × 0.08%</span></td>
 </tr>
 <tr>
-<td>Prefund days at <span class="b" data-b="cof">4%</span> [A8]</td>
+<td>Prefund days at <span class="b" data-b="cof">4%</span> <button type="button" class="ai" data-a="A8" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A8</span></button></td>
 <td>2</td>
 <td>1</td>
 <td>0</td>
@@ -634,7 +647,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td><strong><span class="b" data-b="c_y">0.40%</span></strong></td>
 </tr>
 <tr>
-<td><strong>Share at months 3 / 6 / 12 after go-live</strong> [A9]</td>
+<td><strong>Share at months 3 / 6 / 12 after go-live</strong> <button type="button" class="ai" data-a="A9" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A9</span></button></td>
 <td>10/20/30%</td>
 <td>25/35/40%</td>
 <td>30/40/50%</td>
@@ -777,7 +790,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
  <div class="report" data-lang="ko">
 <div class="scen"><span class="scen-t"></span><button class="scen-r" hidden></button></div>
 <h1>미국발 타발송금 가설: Tipalti 한국 지급 구간에서 먼저 검증</h1>
-<p><strong>과제 2 (타발송금) · HSO · [A#]는 검증이 필요한 가정, 나머지 수치는 출처 표기</strong></p>
+<p><strong>과제 2 (타발송금) · HSO · <button type="button" class="ai" data-a="HDR" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">HDR</span></button> 표시는 검증이 필요한 가정(마우스를 올리거나 누르면 설명), 나머지 수치는 출처 표기</strong></p>
 <blockquote>
 <p><strong>가설: 한국 개인에게 지급하는 미국 지급 인프라를 추가 세그먼트로 검증해 볼 만하며, 첫 검증 대상으로 Tipalti를 제안함.</strong></p>
 <ul>
@@ -794,7 +807,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <ul>
 <li>거주자 1인당 연 10만 달러, 비거주자·외국인거주자는 건당 5천 달러·연 5만 달러 <sup class="ref"><a class="cite" href="#src-ko-1">[1]</a></sup>.</li>
 <li>아마존·틱톡샵 대형 셀러 매출은 연 10만 달러를 쉽게 넘김. 이 시장에는 Payoneer가 2022년 신한은행과 손잡고 먼저 들어와 있음 <sup class="ref"><a class="cite" href="#src-ko-2">[2]</a></sup>.</li>
-<li>2024년 1인 미디어 창작자 34,806명이 신고한 수입은 2.47조 원. 상위 10%(평균 3.33억 원)는 한도(<span class="b" data-b="fxr">₩1,400</span>/$ 기준 약 <span class="b" data-b="capk">1.4억 원</span> [A3])를 넘지만, 나머지 90%는 평균 약 4,200만 원이고 전체 수입의 약 53%를 가져감 <a href="국세청 구간 자료로 직접 계산">[3]</a>.</li>
+<li>2024년 1인 미디어 창작자 34,806명이 신고한 수입은 2.47조 원. 상위 10%(평균 3.33억 원)는 한도(<span class="b" data-b="fxr">₩1,400</span>/$ 기준 약 <span class="b" data-b="capk">1.4억 원</span> <button type="button" class="ai" data-a="A3" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A3</span></button>)를 넘지만, 나머지 90%는 평균 약 4,200만 원이고 전체 수입의 약 53%를 가져감 <a href="국세청 구간 자료로 직접 계산">[3]</a>.</li>
 <li>수취인이 지금 내는 비용은 Patreon(Payoneer 경유) $0.25 + 1.55%, PayPal 1% <sup class="ref"><a class="cite" href="#src-ko-4">[4]</a></sup>. Upwork는 원화 출금 건당 $0.99에 환전 마진이 따로 붙고 <sup class="ref"><a class="cite" href="#src-ko-5">[5]</a></sup>, Deel은 이체는 무료지만 환전 수수료를 받음 <sup class="ref"><a class="cite" href="#src-ko-6">[6]</a></sup>. Tipalti 원화 송금은 T+3에 건당 최대 2만 달러, 원화 현지 이체는 T+2–T+3 <sup class="ref"><a class="cite" href="#src-ko-7">[7]</a></sup>.</li>
 </ul>
 <p>→ 그래서 개인에게 지급하는 플랫폼을 보았고, 플랫폼을 하나씩 접촉하기보다 그 뒤의 지급 인프라 사업자가 더 빠른 경로일 수 있다고 보았음.</p>
@@ -940,7 +953,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td><sup class="ref"><a class="cite" href="#src-ko-8">[8]</a></sup></td>
 </tr>
 <tr>
-<td>한국 지급 비중 [A1]</td>
+<td>한국 지급 비중 <button type="button" class="ai" data-a="A1" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A1</span></button></td>
 <td>0.2%</td>
 <td>0.4%</td>
 <td>0.6%</td>
@@ -948,7 +961,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td>대리 지표, 디스커버리에서 확인</td>
 </tr>
 <tr>
-<td>한도 내 개인 수취인 비중 [A2]</td>
+<td>한도 내 개인 수취인 비중 <button type="button" class="ai" data-a="A2" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A2</span></button></td>
 <td>40%</td>
 <td>50%</td>
 <td>60%</td>
@@ -956,7 +969,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td>국세청 창작자 분포 ≈53% <sup class="ref"><a class="cite" href="#src-ko-3">[3]</a></sup></td>
 </tr>
 <tr>
-<td><strong>월간 대상 원화 물량</strong> (<span class="b" data-b="fxr">₩1,400</span>/$ [A3])</td>
+<td><strong>월간 대상 원화 물량</strong> (<span class="b" data-b="fxr">₩1,400</span>/$ <button type="button" class="ai" data-a="A3" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A3</span></button>)</td>
 <td><strong>₩7.0B</strong></td>
 <td><strong>₩17.5B</strong></td>
 <td><strong>₩31.5B</strong></td>
@@ -964,7 +977,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td></td>
 </tr>
 <tr>
-<td>평균 지급액 [A4]</td>
+<td>평균 지급액 <button type="button" class="ai" data-a="A4" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A4</span></button></td>
 <td>$800</td>
 <td>$500</td>
 <td>$400</td>
@@ -987,28 +1000,28 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 </thead>
 <tbody>
 <tr>
-<td>Tipalti 대상 도매 환전 마진 [A5]</td>
+<td>Tipalti 대상 도매 환전 마진 <button type="button" class="ai" data-a="A5" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A5</span></button></td>
 <td>0.20%</td>
 <td>0.30%</td>
 <td>0.40%</td>
 <td><span class="b" data-b="c_fx">0.30%</span></td>
 </tr>
 <tr>
-<td>건당 수수료 [A6]</td>
+<td>건당 수수료 <button type="button" class="ai" data-a="A6" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A6</span></button></td>
 <td>₩300</td>
 <td>₩500</td>
 <td>₩800</td>
 <td><span class="b" data-b="c_fee">₩500</span></td>
 </tr>
 <tr>
-<td>당발 상계 비중 × 절감 스프레드 [A7]</td>
+<td>당발 상계 비중 × 절감 스프레드 <button type="button" class="ai" data-a="A7" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A7</span></button></td>
 <td>30% × 0.05%</td>
 <td>50% × 0.08%</td>
 <td>70% × 0.10%</td>
 <td><span class="b" data-b="c_net">50% × 0.08%</span></td>
 </tr>
 <tr>
-<td>프리펀딩 일수 (조달금리 <span class="b" data-b="cof">4%</span>) [A8]</td>
+<td>프리펀딩 일수 (조달금리 <span class="b" data-b="cof">4%</span>) <button type="button" class="ai" data-a="A8" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A8</span></button></td>
 <td>2</td>
 <td>1</td>
 <td>0</td>
@@ -1022,7 +1035,7 @@ input[type=range]{width:100%;height:1rem;margin:.15rem 0;accent-color:var(--blue
 <td><strong><span class="b" data-b="c_y">0.40%</span></strong></td>
 </tr>
 <tr>
-<td><strong>연동 후 3 / 6 / 12개월 차 점유율</strong> [A9]</td>
+<td><strong>연동 후 3 / 6 / 12개월 차 점유율</strong> <button type="button" class="ai" data-a="A9" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">A9</span></button></td>
 <td>10/20/30%</td>
 <td>25/35/40%</td>
 <td>30/40/50%</td>
@@ -1238,7 +1251,7 @@ function upd(){
  $('k3').textContent=fM(r3.t);$('k3s').textContent=L(p.s3+'% share · '+fB(r3.v)+' routed','점유율 '+p.s3+'% · 라우팅 '+fB(r3.v));
  $('k12').textContent=fM(r12.t);$('k12s').textContent=L(p.s12+'% share · '+fB(r12.v)+' routed','점유율 '+p.s12+'% · 라우팅 '+fB(r12.v));
  $('kar').textContent=fB(ar);$('kars').textContent=L(pct(r12.y)+' all-in · '+n0(r12.cnt)+' payouts/mo','총 수익률 '+pct(r12.y)+' · 월 '+n0(r12.cnt)+'건');
- $('kport').textContent=fB(ar*p.acc);$('kports').textContent=L('×'+p.acc+' similar account(s) [assumption]','유사 계정 ×'+p.acc+' [가정]');
+ $('kport').textContent=fB(ar*p.acc);$('kports').innerHTML=L('×'+p.acc+' similar account(s) ','유사 계정 ×'+p.acc+' ')+AI('ACC');if(typeof aiLabel==='function')aiLabel();
  const segs=segScores();
  const tor=Object.keys(DRV).map(k=>{const lo={...p},hi={...p};lo[k]*=.75;hi[k]*=1.25;return[k,DRV[k][LANG==='ko'?1:0],rev(lo,lo.s12).t*12-ar,rev(hi,hi.s12).t*12-ar];}).sort((a,b)=>Math.abs(b[3]-b[2])-Math.abs(a[3]-a[2]));
  if(charts){
@@ -1277,6 +1290,50 @@ function upd(){
  $('ana').innerHTML=A.map(x=>`<li>${x}</li>`).join('');
  if(typeof renderReport==='function'&&typeof BASEB!=='undefined')renderReport(p);
 }
+
+/* ===== assumption info icons + tooltip ===== */
+const ASM={
+en:{A1:['Korea share of Tipalti volume','Base 0.4% (range 0.2–0.6%).','Tipalti does not publish a Korea split; this is a proxy and the first number I would confirm in discovery.'],
+ A2:['Cap-eligible share','Base 50% (range 40–60%).','Share of Korea volume paid to individuals under the §2-31 cap (US$100k a year). NTS creator data puts it near 53%.'],
+ A3:['USD/KRW rate','₩1,400 per US$ for all conversions.','A rounded recent rate; it also sets the cap in won (≈₩140M).'],
+ A4:['Average payout','Base $500 (range $400–800).','Sets the number of payouts and so the fee revenue. Typical creator and freelancer payout size, to check against Tipalti band data.'],
+ A5:['Wholesale FX margin to Tipalti','Base 0.30% (range 0.20–0.40%).','Kept well below the 1–1.6% payees pay today, so Tipalti still has room for its own markup.'],
+ A6:['Fee per payout','Base ₩500 (range ₩300–800).','A flat per-payout fee in line with local transfer pricing.'],
+ A7:['USD netting','Base 50% of routed USD netted, saving 0.08% (range 30% × 0.05% to 70% × 0.10%).','Inbound USD offset against MOIN\'s outbound USD. Depends on how §2-31⑥ (상계) applies, which MOIN compliance would need to confirm.'],
+ A8:['Prefunding','Base 1 day at 4% cost of funds (range 0–2 days).','Days MOIN funds KRW before Tipalti\'s USD arrives; a cost, not revenue.'],
+ A9:['Share of Tipalti\'s Korea volume','Base 25 / 35 / 40% at months 3 / 6 / 12 (low 10/20/30%, high 30/40/50%).','Follows the band-by-band plan in Q3: new customers first, then all sub-$5k payouts, then the $5k–20k band.'],
+ ACC:['Similar accounts','Base ×1 (Tipalti only).','How many comparable payout platforms (Trolley, Hyperwallet, Deel…) reuse the same integration. Not counted in the report\'s base case.'],
+ HDR:['Assumption marker','','Each ⓘ marks an assumption to validate. Hover, focus or tap it to see the base value, range and reasoning.']},
+ko:{A1:['Tipalti 결제액 중 한국 비중','기준 0.4% (범위 0.2–0.6%).','Tipalti가 한국 비중을 공개하지 않아 대리 지표로 잡았음. 디스커버리에서 가장 먼저 확인하고 싶은 숫자.'],
+ A2:['한도 내 적용 가능 비중','기준 50% (범위 40–60%).','한국 물량 중 §2-31 한도(연 10만 달러) 안의 개인 수취인 비중. 국세청 창작자 자료로는 약 53%.'],
+ A3:['원/달러 환율','모든 환산에 ₩1,400/$ 적용.','최근 환율을 반올림한 값. 원화 기준 한도(약 1.4억 원)도 이 값으로 계산함.'],
+ A4:['평균 지급액','기준 $500 (범위 $400–800).','지급 건수와 건당 수수료 매출을 정함. 크리에이터·프리랜서의 일반적인 지급 규모로 잡았고, Tipalti 구간 데이터로 확인 필요.'],
+ A5:['Tipalti 대상 도매 환전 마진','기준 0.30% (범위 0.20–0.40%).','수취인이 지금 내는 1–1.6%보다 충분히 낮게 잡아 Tipalti 마진이 남도록 함.'],
+ A6:['건당 수수료','기준 ₩500 (범위 ₩300–800).','국내 이체 가격 수준의 정액 수수료.'],
+ A7:['USD 상계','기준 라우팅 USD의 50% 상계, 절감 0.08% (범위 30% × 0.05%–70% × 0.10%).','타발 USD를 모인 당발 USD와 맞추는 구조. §2-31⑥(상계) 적용 여부는 모인 컴플라이언스 확인이 필요함.'],
+ A8:['프리펀딩','기준 1일, 조달금리 4% (범위 0–2일).','Tipalti의 USD가 들어오기 전 모인이 원화를 먼저 지급하는 기간. 매출이 아니라 비용.'],
+ A9:['Tipalti 한국 물량 점유율','기준 3 / 6 / 12개월 차 25 / 35 / 40% (저 10/20/30%, 고 30/40/50%).','Q3의 구간별 계획을 따름. 신규 고객 → 5천 달러 미만 전체 → 5천–2만 달러 구간 순.'],
+ ACC:['유사 계정 수','기준 ×1 (Tipalti만).','같은 연동을 다시 쓸 수 있는 유사 지급 플랫폼(Trolley, Hyperwallet, Deel 등) 수. 보고서 기준 시나리오에는 넣지 않음.'],
+ HDR:['가정 표시','','ⓘ는 검증이 필요한 가정을 뜻함. 마우스를 올리거나 누르면 기준값, 범위, 근거가 보임.']}};
+const AI=k=>`<button type="button" class="ai" data-a="${k}" aria-describedby="tip"><span aria-hidden="true">i</span><span class="sr">${k}</span></button>`;
+const withAI=s=>s.replace(/\s?\[(A\d)\]/g,(m,k)=>' '+AI(k));
+const TIP=document.createElement('div');TIP.id='tip';TIP.setAttribute('role','tooltip');TIP.hidden=true;document.body.appendChild(TIP);
+let tipFor=null;
+function tipShow(b){const k=b.dataset.a,a=ASM[LANG][k];if(!a)return;tipFor=b;
+ TIP.innerHTML=`<div class="tt">${k.startsWith('A')?k+' · ':''}${a[0]}</div>${a[1]?`<div class="tb">${a[1]}</div>`:''}<div class="tw">${a[2]}</div>`;
+ TIP.hidden=false;const r=b.getBoundingClientRect(),w=TIP.offsetWidth,h=TIP.offsetHeight,m=8;
+ let x=Math.min(Math.max(m,r.left+r.width/2-w/2),innerWidth-w-m),y=r.top-h-10;let below=false;
+ if(y<m){y=r.bottom+10;below=true;}TIP.style.left=x+'px';TIP.style.top=y+'px';TIP.dataset.pos=below?'below':'above';
+ TIP.style.setProperty('--ax',(r.left+r.width/2-x)+'px');}
+function tipHide(){TIP.hidden=true;tipFor=null;}
+function aiLabel(){document.querySelectorAll('.ai').forEach(b=>{const a=ASM[LANG][b.dataset.a];if(a)b.setAttribute('aria-label',L('Assumption ','가정 ')+(b.dataset.a.startsWith('A')?b.dataset.a+': ':'')+a[0]);});}
+document.addEventListener('mouseover',e=>{const b=e.target.closest('.ai');if(b&&b!==tipFor)tipShow(b);});
+document.addEventListener('mouseout',e=>{const b=e.target.closest('.ai');if(b&&!b.contains(e.relatedTarget)&&document.activeElement!==b)tipHide();});
+document.addEventListener('focusin',e=>{const b=e.target.closest('.ai');if(b)tipShow(b);});
+document.addEventListener('focusout',e=>{if(e.target.closest('.ai'))tipHide();});
+document.addEventListener('click',e=>{const b=e.target.closest('.ai');if(b){e.preventDefault();e.stopPropagation();tipShow(b);}else if(!e.target.closest('#tip'))tipHide();},true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')tipHide();});
+addEventListener('scroll',()=>{if(tipFor)tipShow(tipFor);},true);addEventListener('resize',()=>{if(tipFor)tipShow(tipFor);});
 
 /* ===== live report: bound figures and scenario sentences ===== */
 const RNAME={tv:['Annual payment volume','연간 결제액'],ks:['Korea share','한국 지급 비중'],el:['Cap-eligible share','한도 내 비중'],fxr:['USD/KRW','원/달러 환율'],avg:['Average payout','평균 지급액'],acc:['Similar accounts','유사 계정 수'],fx:['FX margin','환전 마진'],fee:['Fee per payout','건당 수수료'],disc:['Tier discount','구간 할인'],ns:['Netting share','상계 비중'],nb:['Netting spread','상계 절감 스프레드'],pd:['Prefund days','프리펀딩 일수'],cof:['Cost of funds','조달금리'],s3:['Month-3 share','3개월 차 점유율'],s6:['Month-6 share','6개월 차 점유율'],s12:['Month-12 share','12개월 차 점유율']};
@@ -1344,7 +1401,7 @@ document.querySelectorAll('.scen-r').forEach(b=>b.onclick=resetBase);
 /* settings: language, theme, text size */
 const store=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 function applyLang(l,save){LANG=l==='ko'?'ko':'en';D.lang=LANG;if(save)store('moin_lang',LANG);
- const d=I18N[LANG];document.querySelectorAll('[data-i18n]').forEach(e=>{const v=d[e.dataset.i18n];if(v!=null)e.textContent=v;});
+ const d=I18N[LANG];document.querySelectorAll('[data-i18n]').forEach(e=>{const v=d[e.dataset.i18n];if(v!=null){if(/\[A\d\]/.test(v))e.innerHTML=withAI(v);else e.textContent=v;}});aiLabel();tipHide();
  [['th-light',d.day],['th-dark',d.night],['fs-dn',d.fsdn],['fs-up',d.fsup]].forEach(([i,v])=>{$(i).title=v;$(i).setAttribute('aria-label',v);});
  CRIT[LANG].forEach((c,i)=>$('wl'+i).textContent=c);
  $('lang-en').classList.toggle('on',LANG==='en');$('lang-ko').classList.toggle('on',LANG==='ko');
